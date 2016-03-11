@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ammai on Daniel Liu</title>
+    <link>http://Mithril-NTU.github.io/categories/ammai/</link>
+    <description>Recent content in Ammai on Daniel Liu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 12 Mar 2016 02:29:56 +0800</lastBuildDate>
+    <atom:link href="http://Mithril-NTU.github.io/categories/ammai/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Welcome</title>
+      <link>http://mithril-ntu.github.io/welcome/</link>
+      <pubDate>Sat, 12 Mar 2016 02:29:56 +0800</pubDate>
+      
+      <guid>http://mithril-ntu.github.io/welcome/</guid>
+      <description>
+
+&lt;h3 id=&#34;first-blog:2cc7dc244eed4480e8b46c91e911e96b&#34;&gt;First Blog&lt;/h3&gt;
+
+&lt;p&gt;Hello Everyone!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
