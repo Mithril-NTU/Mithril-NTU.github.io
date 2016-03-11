@@ -7,7 +7,9 @@ Copyright = "All rights reserved - 2016"
 canonifyurls = true
 
 [params]
-  #themeColor = "theme-base-0d"
+  themeColor = "theme-base-0d"
+  cover = "images/screen.png"
+  logo = 
   description = "Nothing yet"
   author = "Daniel Liu"
   authorlocation = "Taiwan"
