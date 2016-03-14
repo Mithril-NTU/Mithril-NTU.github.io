@@ -20,6 +20,20 @@
 &lt;h3 id=&#34;first-blog:2cc7dc244eed4480e8b46c91e911e96b&#34;&gt;First Blog&lt;/h3&gt;
 
 &lt;p&gt;Hello Everyone!&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://Mithril-NTU.github.io/media/tn.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;example&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
 </description>
     </item>
     

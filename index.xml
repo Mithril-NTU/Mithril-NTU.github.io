@@ -6,8 +6,138 @@
     <description>Recent content on Daniel Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 12 Mar 2016 02:29:56 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 14 Mar 2016 19:23:42 +0800</lastBuildDate>
     <atom:link href="http://Mithril-NTU.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>L2_PAPER</title>
+      <link>http://mithril-ntu.github.io/L2_PAPER/</link>
+      <pubDate>Mon, 14 Mar 2016 19:23:42 +0800</pubDate>
+      
+      <guid>http://mithril-ntu.github.io/L2_PAPER/</guid>
+      <description>
+
+&lt;h3 id=&#34;cvpr-10:87f4392be42726eab66708aaabb6a62d&#34;&gt;CVPR‘10&lt;/h3&gt;
+
+&lt;h3 id=&#34;aggregating-local-descriptors-into-a-compact-image-representation:87f4392be42726eab66708aaabb6a62d&#34;&gt;Aggregating local descriptors into a compact image representation&lt;/h3&gt;
+
+&lt;h4 id=&#34;abstract:87f4392be42726eab66708aaabb6a62d&#34;&gt;Abstract&lt;/h4&gt;
+
+&lt;h5 id=&#34;problem:87f4392be42726eab66708aaabb6a62d&#34;&gt;Problem:&lt;/h5&gt;
+
+&lt;p&gt;To find an image search algorithm for large dataset with high accuracy and efficiency and low memory cost&lt;/p&gt;
+
+&lt;h5 id=&#34;solution:87f4392be42726eab66708aaabb6a62d&#34;&gt;Solution:&lt;/h5&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Aggregating local image descriptors into a vector with limited dimension&lt;/li&gt;
+&lt;li&gt;jointly reduce features’ dimension and index them&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;introduction:87f4392be42726eab66708aaabb6a62d&#34;&gt;Introduction&lt;/h4&gt;
+
+&lt;p&gt;Today’s approaches are hard to fulfil 3 constraints: the search accuracy, its efficiency and the memory usage. To overcome this, the authors propose a new approach called “VLAD(Vector of Locally Aggregated Descriptors)”.
+It proposes an image representation that provides high search accuracy with reasonable vector dimensionality. Then it jointly optimising the trade-off between the dimensionality reduction and the indexation algorithm.&lt;/p&gt;
+
+&lt;h4 id=&#34;paper-structure:87f4392be42726eab66708aaabb6a62d&#34;&gt;Paper structure&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;2.Image vector representation
+2.1.Bag of features
+2.2.Fisher kernel
+2.3.VLAD
+
+3.From vectors to codes
+3.1.Approximate nearest neighbour
+3.2.Indexation-aware dimensionality reduction
+
+4.Experiments
+4.1.Evaluation datasets and local descriptor
+4.2.Image vector representations
+4.3.Reduction and indexation
+4.4.Compare with the state of the art
+4.5.Large scale experiments
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;2-image-vector-representation:87f4392be42726eab66708aaabb6a62d&#34;&gt;2. Image vector representation&lt;/h4&gt;
+
+&lt;h5 id=&#34;2-1-bag-of-features:87f4392be42726eab66708aaabb6a62d&#34;&gt;2.1. Bag of features&lt;/h5&gt;
+
+&lt;p&gt;Extract local features from images —&amp;gt; Group these features into k “visual words”(k-means clustering) —&amp;gt; Represent an image by a weighted and normalised histograms&lt;/p&gt;
+
+&lt;h5 id=&#34;2-2-fisher-kernel:87f4392be42726eab66708aaabb6a62d&#34;&gt;2.2 Fisher kernel&lt;/h5&gt;
+
+&lt;p&gt;Learn a parametric generative model from training data -&amp;gt; Describe a image with the gradient in parameter space which means how the learnt model should be modified to better fit the observed data&lt;/p&gt;
+
+&lt;h5 id=&#34;2-3-vlad:87f4392be42726eab66708aaabb6a62d&#34;&gt;2.3. VLAD&lt;/h5&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Use SIFT descriptors &amp;amp; Learn k “visual words” ;
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%204.36.18%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Compute VLAD；
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%204.36.36%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;v is subsequently L2 -normalized；
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%204.39.34%20PM.png&#34; alt=&#34;&#34; /&gt;
+The whole computation is like following:
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%204.40.27%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;3-from-vectors-to-codes:87f4392be42726eab66708aaabb6a62d&#34;&gt;3. From vectors to codes&lt;/h4&gt;
+
+&lt;p&gt;This problem is divided into 2 steps: 1) a projections that reduces the dimensionality of the vector and 2) a quantisation used to index the resulting vectors.&lt;/p&gt;
+
+&lt;h5 id=&#34;3-1-approximate-nearest-neighbour:87f4392be42726eab66708aaabb6a62d&#34;&gt;3.1. Approximate nearest neighbour&lt;/h5&gt;
+
+&lt;p&gt;ANN is an approach that embeds a vector into a binary space with  excellent accuracy and efficient memory usage. And it provides explicit approximation of the indexed vectors.The author uses the asymmetric distance computation(ADC) variant of this approach.
+To find the α nearest neighbours NN_α(x) of x, we just need compute:
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%206.32.29%20PM.png&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%206.32.44%20PM.png&#34; alt=&#34;&#34; /&gt;
+To embed the vector x into a binary space, we first spill it into (x^1, … , x^m) of equal length D/m. Then a product of quantiser is :
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%206.32.37%20PM.png&#34; alt=&#34;&#34; /&gt;
+The approximation between the original vector y and the quantiser is:
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%206.32.53%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;3-2-indexation-aware-dimensionality-reduction:87f4392be42726eab66708aaabb6a62d&#34;&gt;3.2. Indexation-aware dimensionality reduction&lt;/h5&gt;
+
+&lt;p&gt;The author use PCA for dimensionality reduction. Mapping a vector x ∈ R^D to x’=Mx ∈ R^D’ will lead to information loss:
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%206.46.01%20PM.png&#34; alt=&#34;&#34; /&gt;
+With quantisation, this becomes:
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%206.47.14%20PM.png&#34; alt=&#34;&#34; /&gt;
+IF D’ is large, then ε_p(x) is limited and ε_q(x) is large. There is a trade-off on the number of D’.&lt;/p&gt;
+
+&lt;p&gt;May here can use some optimisation algorithms.&lt;/p&gt;
+
+&lt;p&gt;In addition, because PCA, the variance of the different components of x’ is not balanced. So the author performs an orthogonal transformation after PCA: X’’ = QX’ = QMX’.
+Q is chose in the form of a Householder matrix:
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%206.54.12%20PM.png&#34; alt=&#34;&#34; /&gt;
+or is chose as a random orthogonal matrix.&lt;/p&gt;
+
+&lt;h4 id=&#34;4-experiments:87f4392be42726eab66708aaabb6a62d&#34;&gt;4.Experiments&lt;/h4&gt;
+
+&lt;h5 id=&#34;4-1-evaluation-datasets-and-local-descriptor:87f4392be42726eab66708aaabb6a62d&#34;&gt;4.1.Evaluation datasets and local descriptor&lt;/h5&gt;
+
+&lt;p&gt;3 datasets: 1) INRIA Holidays dataset; 2) UKB dataset; 3) 10M images collected from Flickr&lt;/p&gt;
+
+&lt;h5 id=&#34;4-2-image-vector-representations:87f4392be42726eab66708aaabb6a62d&#34;&gt;4.2.Image vector representations&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%207.02.31%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;4-3-reduction-and-indexation:87f4392be42726eab66708aaabb6a62d&#34;&gt;4.3.Reduction and indexation&lt;/h5&gt;
+
+&lt;p&gt;1) Balancing the variance
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%207.03.35%20PM.png&#34; alt=&#34;&#34; /&gt;
+2) Choice of the projection subspace dimension
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%207.03.41%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;4-4-compare-with-the-state-of-the-art:87f4392be42726eab66708aaabb6a62d&#34;&gt;4.4.Compare with the state of the art&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%207.04.16%20PM.png&#34; alt=&#34;&#34; /&gt;
+For the same memory usage, this paper’s method outperforms others!&lt;/p&gt;
+
+&lt;h5 id=&#34;4-5-large-scale-experiments:87f4392be42726eab66708aaabb6a62d&#34;&gt;4.5.Large scale experiments&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%207.07.03%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Welcome</title>
@@ -20,6 +150,20 @@
 &lt;h3 id=&#34;first-blog:2cc7dc244eed4480e8b46c91e911e96b&#34;&gt;First Blog&lt;/h3&gt;
 
 &lt;p&gt;Hello Everyone!&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://Mithril-NTU.github.io/media/tn.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;example&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
 </description>
     </item>
     
