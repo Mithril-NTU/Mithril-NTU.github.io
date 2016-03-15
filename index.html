@@ -40,6 +40,8 @@
       
         <li><a href="/L2_PAPER/"> L2_PAPER </a></li>
       
+        <li><a href="/L3_PAPER/"> L3_PAPER </a></li>
+      
         <li><a href="/welcome/"> Welcome </a></li>
       
     </ul>
@@ -53,6 +55,126 @@
 <div class="posts">
 
       
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://mithril-ntu.github.io/L3_PAPER/">
+        L3_PAPER
+      </a>
+    </h1>
+
+    <span class="post-date">Wed, Mar 16, 2016</span>
+
+    
+
+<h3 id="cvpr-11:f809bb8f2a579f5c8d55fa3650d344a6">CVPR‘11</h3>
+
+<h3 id="iterative-quantization-a-procrustean-approach-to-learning-binary-codes:f809bb8f2a579f5c8d55fa3650d344a6">Iterative Quantization: A Procrustean Approach to Learning Binary Codes</h3>
+
+<h4 id="abstract:f809bb8f2a579f5c8d55fa3650d344a6">Abstract</h4>
+
+<h5 id="problem:f809bb8f2a579f5c8d55fa3650d344a6">Problem:</h5>
+
+<p>Learn similarity-preserving binary codes for efficient retrieval  in large scale image collections</p>
+
+<h5 id="solution:f809bb8f2a579f5c8d55fa3650d344a6">Solution:</h5>
+
+<p>An alternating minimization scheme(ITQ, Iterative Quantization): Finding a a rotation of zero-centered data so as to minimize the quantization error of mapping this data to the vertices of a zero-centered binary hypercube
+ITQ can be used with unsupervised or supervised data embeddings</p>
+
+<h4 id="introduction:f809bb8f2a579f5c8d55fa3650d344a6">Introduction</h4>
+
+<p>Encode high-dimensional image descriptor as compact binary strings. This codes should have 3 properties: 1) short enough for storing large datasets, 2) map similar images to binary codes with a low Hamming distance, 3) encode new images efficiently
+The author’s approach is like following:
+PCA -&gt; Apply a random orthogonal transformation(counteract the variance of different PCA directions) —&gt; ITQ for refining the initial orthogonal transformation to minimize quantization error</p>
+
+<h4 id="paper-structure:f809bb8f2a579f5c8d55fa3650d344a6">Paper structure</h4>
+
+<pre><code>2. Unsupervised Code Learning 
+2.1. Dimensionality Reduction
+2.2. Binary Quantization
+
+3. Evaluation of Unsupervised Code Learning 
+3.1. Datasets
+3.2. Protocols and Baseline Methods
+3.3. Results on CIFAR Dataset
+3.4. Results on 580000 Tiny Images
+
+4. Leveraging Label Information
+
+5. Discussion
+</code></pre>
+
+<h4 id="2-unsupervised-code-learning:f809bb8f2a579f5c8d55fa3650d344a6">2. Unsupervised Code Learning</h4>
+
+<p>Procedure:
+1) Apply linear dimensionality reduction to the data(PCA)
+2) Perform binary quantization</p>
+
+<h5 id="2-1-dimensionality-reduction:f809bb8f2a579f5c8d55fa3650d344a6">2.1. Dimensionality Reduction</h5>
+
+<p>To maximize the variance approximately, we get the following objective function:
+<img src="AMMAI_L3Screen%20Shot%202016-03-15%20at%2011.53.58%20PM.png" alt="" />
+This is the same as PCA, so we get W by taking the top c eigenvectors of the data covariance matrix  X^TX</p>
+
+<h5 id="2-2-binary-quantization:f809bb8f2a579f5c8d55fa3650d344a6">2.2. Binary Quantization</h5>
+
+<p>To minimize the quantization loss, we get:
+<img src="AMMAI_L3Screen%20Shot%202016-03-16%20at%2012.09.58%20AM.png" alt="" />
+where ||.||_F is the Frobenius norm and R is some orthogonal c*c matrix.
+The author initializes the R as a random orthogonal matrix. Then     adopt the ITQ procedure:
+1) Fix R and update B:
+Expanding the formulation above, we have
+<img src="AMMAI_L3Screen%20Shot%202016-03-16%20at%2012.24.50%20AM.png" alt="" />
+Minimizing this is equivalent to maximize:
+<img src="AMMAI_L3Screen%20Shot%202016-03-16%20at%2012.26.09%20AM.png" alt="" />
+2) Fix B and update R:
+a) Compute the SVD of the c*c matrix B^TV as SΩS’^T
+b) Let R = S’S^T
+<img src="AMMAI_L3Screen%20Shot%202016-03-16%20at%2012.29.23%20AM.png" alt="" /></p>
+
+<h4 id="3-evaluation-of-unsupervised-code-learning:f809bb8f2a579f5c8d55fa3650d344a6">3. Evaluation of Unsupervised Code Learning</h4>
+
+<h5 id="3-1-datasets:f809bb8f2a579f5c8d55fa3650d344a6">3.1. Datasets</h5>
+
+<p>1) CIFAR dataset; 2)580000 Tiny images</p>
+
+<h5 id="3-2-protocols-and-baseline-methods:f809bb8f2a579f5c8d55fa3650d344a6">3.2. Protocols and Baseline Methods</h5>
+
+<p>Protocols:
+1) To evaluate performance of nearest neighbor search using Euclidean neighbors as ground truth
+2) To evaluate the semantic consistency of codes produced by different methods by using class labels as ground truth.
+Baseline methods:
+1) LSH; 2) PCA-Direct; 3) PCA-RR; 4) SH; 5) SKLSH; 6) PCA-Nonorth</p>
+
+<h5 id="3-3-results-on-cifar-dataset:f809bb8f2a579f5c8d55fa3650d344a6">3.3. Results on CIFAR Dataset</h5>
+
+<p><img src="AMMAI_L3Screen%20Shot%202016-03-16%20at%2012.42.06%20AM.png" alt="" />
+<img src="AMMAI_L3Screen%20Shot%202016-03-16%20at%2012.36.03%20AM.png" alt="" /></p>
+
+<h5 id="3-4-results-on-580000-tiny-images:f809bb8f2a579f5c8d55fa3650d344a6">3.4. Results on 580000 Tiny Images</h5>
+
+<p><img src="AMMAI_L3Screen%20Shot%202016-03-16%20at%2012.41.03%20AM.png" alt="" />
+<img src="AMMAI_L3Screen%20Shot%202016-03-16%20at%2012.41.08%20AM.png" alt="" /></p>
+
+<h4 id="4-leveraging-label-information:f809bb8f2a579f5c8d55fa3650d344a6">4. Leveraging Label Information</h4>
+
+<p>This section shows how to refine the binary codes in a supervised setting using Canonical Correlation Analysis(CCA).
+The goal of CCA is to find projection directions w_k and u_k for feature and label vectors to maximize the correlation between the projected data X*w_k and Y*u_k:
+<img src="AMMAI_L3Screen%20Shot%202016-03-16%20at%2012.48.41%20AM.png" alt="" />
+The author compares his method with a semi-supervised approach(SSH):
+<img src="AMMAI_L3Screen%20Shot%202016-03-16%20at%2012.50.50%20AM.png" alt="" />
+<img src="AMMAI_L3Screen%20Shot%202016-03-16%20at%2012.51.45%20AM.png" alt="" /></p>
+
+<h4 id="5-discussion:f809bb8f2a579f5c8d55fa3650d344a6">5. Discussion</h4>
+
+<p>Contributions of this paper:
+1) Show that the performance of PCA-based binary coding schemes can be greatly improved by simply rotating the projected data.
+2) Demonstrate an iterative quantization method for refining this rotation that is very natural and effective.
+Limitation:
+Use one bit per projected data dimension.</p>
+
+  </div>
+  
   <div class="post">
     <h1 class="post-title">
       <a href="http://mithril-ntu.github.io/L2_PAPER/">
