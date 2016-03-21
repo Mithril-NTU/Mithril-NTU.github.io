@@ -1,0 +1,194 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> L4_PAPER &middot; Daniel Liu </title>
+
+  
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/poole.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/syntax.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daniel Liu" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://mithril-ntu.github.io/"><h1>Daniel Liu</h1></a>
+      <p class="lead">
+       This is Daniel&#39;s Blog. 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/L2_PAPER/"> L2_PAPER </a></li>
+      
+        <li><a href="/L3_PAPER/"> L3_PAPER </a></li>
+      
+        <li><a href="/L4_PAPER/"> L4_PAPER </a></li>
+      
+        <li><a href="/L5_PAPER/"> L5_PAPER </a></li>
+      
+        <li><a href="/welcome/"> Welcome </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>L4_PAPER</h1>
+			  <span class="post-date">Wed, Mar 16, 2016</span>
+			      
+
+<h3 id="icml-09:6e9caa20e3502a65896320b3023d9e3d">ICML‘09</h3>
+
+<h3 id="online-dictionary-learning-for-sparse-coding:6e9caa20e3502a65896320b3023d9e3d">Online Dictionary Learning for Sparse Coding</h3>
+
+<h4 id="abstract:6e9caa20e3502a65896320b3023d9e3d">Abstract</h4>
+
+<h5 id="problem:6e9caa20e3502a65896320b3023d9e3d">Problem</h5>
+
+<p>To learn basis elements, of which we model data vectors as linear combination, especially on large-scale datasets</p>
+
+<h5 id="solution:6e9caa20e3502a65896320b3023d9e3d">Solution</h5>
+
+<p>Propose a online optimization algorithm for dictionary learning based on stochastic approximations
+(A proof of convergence is provided.)</p>
+
+<h4 id="introduction:6e9caa20e3502a65896320b3023d9e3d">Introduction</h4>
+
+<p>Learning the dictionary instead of using predefined off-the-shelf bases has been shown to dramatically improve signal reconstruction.But, todays’ methods can’t handle large-scale datasets.
+To address this problem, the author proposes a method based on stochastic approximation that process one element of the training set at a time. It is shown to be go further and exploit the specific structure of sparse coding.</p>
+
+<h4 id="paper-structure:6e9caa20e3502a65896320b3023d9e3d">Paper structure</h4>
+
+<pre><code>2. Problem Statement
+
+3. Online Dictionary Learning
+3.1. Algorithm Outline
+3.2. Sparse Coding
+3.3. Dcitionary Update
+3.4. Optimizing the Algorithm
+
+4. Convergence Analysis
+4.1. Assumptions
+4.2. Main Result and Proof Sketches
+
+5. Experimental Validation
+5.1. Performance Evaluation
+5.2. Application to Inpainting
+
+6. Discussion
+</code></pre>
+
+<h4 id="2-problem-statement:6e9caa20e3502a65896320b3023d9e3d">2. Problem Statement</h4>
+
+<p>Training set X = [x_1,x_2,…,x_n] in R^(m*n).
+The empirical cost function:
+<img src="/L4/Screen%20Shot%202016-03-16%20at%203.51.43%20PM.png" alt="" />
+where D is in R^(m×k).
+The author defines l(x,D) as following:
+<img src="/L4/Screen%20Shot%202016-03-16%20at%203.53.11%20PM.png" alt="" />
+where λ is a l1 regularization parameter to yield a sparse solution for α.
+To prevent D from being arbitrarily large, the author constraints D in a convex set C:
+<img src="/L4/Screen%20Shot%202016-03-16%20at%203.56.02%20PM.png" alt="" />
+In conclusion, the problem is stated as below:
+<img src="/L4/Screen%20Shot%202016-03-16%20at%203.57.15%20PM.png" alt="" />
+As this problem has 2 variables, the author tries to solve the problem by alternating between the 2 variables, minimizing over one while keeping the other one fixed.</p>
+
+<p>In particular, given a finite training set, one should not spend too much effort on accurately minimizing the empirical cost, since it is only an approximation of the expected cost.
+The expected cost is shown as following:
+<img src="/L4/Screen%20Shot%202016-03-16%20at%204.05.02%20PM.png" alt="" /></p>
+
+<p>To address this problem, the author proposes a new method based on stochastic approximations but exploits the specific structure of the problem to solve it(especially no need to tune the learning rate ρ).
+SG update is shown below:
+<img src="/L4/Screen%20Shot%202016-03-16%20at%204.14.17%20PM.png" alt="" /></p>
+
+<h4 id="3-online-dictionary-learning:6e9caa20e3502a65896320b3023d9e3d">3. Online Dictionary Learning</h4>
+
+<h5 id="3-1-algorithm-outline:6e9caa20e3502a65896320b3023d9e3d">3.1. Algorithm Outline</h5>
+
+<p><img src="/L4/Screen%20Shot%202016-03-16%20at%204.41.44%20PM.png" alt="" />
+D_t is computed by minimizing over C the function:
+<img src="/L4/Screen%20Shot%202016-03-16%20at%204.42.45%20PM.png" alt="" />
+This quadratic function acts as a surrogate for f_t, so D_t can be obtained efficiently using D_(t-1) as warm start</p>
+
+<h5 id="3-2-sparse-coding:6e9caa20e3502a65896320b3023d9e3d">3.2. Sparse Coding</h5>
+
+<p>Because of the high correlation between the columns in D, the author chooses the LARS-Lasso algorithm to get α.</p>
+
+<h5 id="3-3-dictionary-update:6e9caa20e3502a65896320b3023d9e3d">3.3. Dictionary Update</h5>
+
+<p><img src="/L4/Screen%20Shot%202016-03-16%20at%204.45.46%20PM.png" alt="" />
+The algorithm for updating the dictionary uses block-coordinate descent with warm restarts, and one of its main advantages is that it is parameter-free and does not require any learning rate tuning, which can be difficult in a constrained optimization setting.</p>
+
+<h5 id="3-4-optimizing-the-algorithm:6e9caa20e3502a65896320b3023d9e3d">3.4. Optimizing the Algorithm</h5>
+
+<p>Some practical tricks:
+1) Handling Fixed-size Datasets:
+If the same signal x is drawn again at time t &gt; t_0, one would like to remove the “old” information concerning x from A_t and B_t —- that is,
+<img src="/L4/Screen%20Shot%202016-03-16%20at%205.08.31%20PM.png" alt="" />
+2) Mini-Batch Extension
+For efficiency, the author uses mini-Batch(η signals) in each iteration.
+<img src="/L4/Screen%20Shot%202016-03-16%20at%205.10.38%20PM.png" alt="" />
+3) Purging the dictionary from Unused Atoms
+Replace unused atoms during the optimization by elements of the training set</p>
+
+<h4 id="4-convergence-analysis:6e9caa20e3502a65896320b3023d9e3d">4. Convergence Analysis</h4>
+
+<h5 id="4-1-assumptions:6e9caa20e3502a65896320b3023d9e3d">4.1. Assumptions</h5>
+
+<p>1) The data admits a bounded probability density p with compact support K.
+2) The quadratic surrogate functions fˆ_t are strictly convex with lower-bounded Hessians.
+3) A sufficient uniqueness condition of the sparse coding solution is verified.</p>
+
+<h5 id="4-2-main-result-and-proof-sketches:6e9caa20e3502a65896320b3023d9e3d">4.2. Main Result and Proof Sketches</h5>
+
+<p><img src="/L4/Screen%20Shot%202016-03-16%20at%208.29.55%20PM.png" alt="" />
+<img src="/L4/Screen%20Shot%202016-03-16%20at%208.30.06%20PM.png" alt="" /></p>
+
+<h4 id="5-experimental-validation:6e9caa20e3502a65896320b3023d9e3d">5. Experimental Validation</h4>
+
+<h5 id="5-1-performance-evaluation:6e9caa20e3502a65896320b3023d9e3d">5.1. Performance Evaluation</h5>
+
+<p><img src="/L4/Screen%20Shot%202016-03-16%20at%208.33.07%20PM.png" alt="" /></p>
+
+<h5 id="5-2-application-to-inpainting:6e9caa20e3502a65896320b3023d9e3d">5.2. Application to Inpainting</h5>
+
+<p><img src="/L4/Screen%20Shot%202016-03-16%20at%208.34.40%20PM.png" alt="" /></p>
+
+<h4 id="6-discussion:6e9caa20e3502a65896320b3023d9e3d">6. Discussion</h4>
+
+<p>Advantage of this method:</p>
+
+<p>1) Significantly faster than batch alternatives on large datasets</p>
+
+<p>2) Not require learning rate tuning like regular stochastic gradient descent methods</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

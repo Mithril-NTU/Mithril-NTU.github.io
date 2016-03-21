@@ -1,0 +1,118 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> L5_PAPER &middot; Daniel Liu </title>
+
+  
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/poole.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/syntax.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daniel Liu" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://mithril-ntu.github.io/"><h1>Daniel Liu</h1></a>
+      <p class="lead">
+       This is Daniel&#39;s Blog. 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/L2_PAPER/"> L2_PAPER </a></li>
+      
+        <li><a href="/L3_PAPER/"> L3_PAPER </a></li>
+      
+        <li><a href="/L4_PAPER/"> L4_PAPER </a></li>
+      
+        <li><a href="/L5_PAPER/"> L5_PAPER </a></li>
+      
+        <li><a href="/welcome/"> Welcome </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>L5_PAPER</h1>
+			  <span class="post-date">Mon, Mar 21, 2016</span>
+			      
+
+<h3 id="science-00:d6a9e0d3e47c951cd76ecbc765d293e7">Science’00</h3>
+
+<h3 id="nonlinear-dimensionality-reduction-by-locally-linear-embedding:d6a9e0d3e47c951cd76ecbc765d293e7">Nonlinear Dimensionality Reduction by Locally Linear Embedding</h3>
+
+<h4 id="abstract:d6a9e0d3e47c951cd76ecbc765d293e7">Abstract</h4>
+
+<h5 id="problem:d6a9e0d3e47c951cd76ecbc765d293e7">Problem:</h5>
+
+<p>How to discover compact representations of high-dimensional data, which can reserve the manifold structure of original data.</p>
+
+<h5 id="solution:d6a9e0d3e47c951cd76ecbc765d293e7">Solution:</h5>
+
+<p>Locally Linear Embedding (LLE), an unsupervised learning algorithm that computes low-dimensional, neighborhood-preserving embeddings of high-dimensional inputs</p>
+
+<h4 id="summary:d6a9e0d3e47c951cd76ecbc765d293e7">Summary</h4>
+
+<h5 id="intuition:d6a9e0d3e47c951cd76ecbc765d293e7">Intuition</h5>
+
+<p>The geometric intuition of LLE is that the author expects each data point and its neighbors to lie on or close to a locally linear patch of the manifold, so he characterize the local geometry of these patches by linear coefficients that reconstruct each data point from its neighbors.</p>
+
+<h5 id="methods:d6a9e0d3e47c951cd76ecbc765d293e7">Methods</h5>
+
+<p>Based on this intuition, the author defines a cost function:
+<img src="/L5/Screen%20Shot%202016-03-21%20at%2011.11.06%20PM.png" alt="" />
+This cost function subjects to 2 constraints:
+(1) enforcing W_ij   0 if X_j does not belong to the set of neighbors of X_i;
+(2) <img src="/L5/Screen%20Shot%202016-03-21%20at%2011.13.30%20PM.png" alt="" />
+Through minimising the cost function, which is a least-squares problem, we can get weights that reflect intrinsic geometric properties of the data that are invariant to rotations, rescalings, and translations of that data point and its neigh- bors.</p>
+
+<p>Then the author maps the high dimension data to a low dimension vector representing global internal coordinates on the manifold based on the weights we get above. To get the best result, the author minimises a cost function as following:
+<img src="/L5/Screen%20Shot%202016-03-21%20at%2011.34.36%20PM.png" alt="" /></p>
+
+<p>The procedures described above can be shown in the figure below:
+<img src="/L5/Screen%20Shot%202016-03-21%20at%2011.37.07%20PM.png" alt="" /></p>
+
+<h5 id="examples:d6a9e0d3e47c951cd76ecbc765d293e7">Examples</h5>
+
+<p>Two-dimensional embeddings based on LLE of faces and words are shown:
+<img src="/L5/Screen%20Shot%202016-03-21%20at%2011.39.17%20PM.png" alt="" />
+<img src="/L5/Screen%20Shot%202016-03-21%20at%2011.39.05%20PM.png" alt="" /></p>
+
+<h5 id="advantages:d6a9e0d3e47c951cd76ecbc765d293e7">Advantages</h5>
+
+<p>(1) Guarantee the global optimality or convergence;
+(2) Involve less free parameters, which means simply tuning;
+(3) The optimizations of LLE are especially tractable;
+(4) Scales well with the intrinsic manifold dimensionality, d, and do not require adiscretized gridding of the embedding space.
+(5) Avoid the need to solve large dynamic programming problems, and tend to accumulate very sparse matrices, whose structure can be exploited for savings in time and space.</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

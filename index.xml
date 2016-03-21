@@ -6,8 +6,202 @@
     <description>Recent content on Daniel Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Mar 2016 00:56:44 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 21 Mar 2016 23:46:37 +0800</lastBuildDate>
     <atom:link href="http://Mithril-NTU.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>L5_PAPER</title>
+      <link>http://mithril-ntu.github.io/L5_PAPER/</link>
+      <pubDate>Mon, 21 Mar 2016 23:46:37 +0800</pubDate>
+      
+      <guid>http://mithril-ntu.github.io/L5_PAPER/</guid>
+      <description>
+
+&lt;h3 id=&#34;science-00:d6a9e0d3e47c951cd76ecbc765d293e7&#34;&gt;Science’00&lt;/h3&gt;
+
+&lt;h3 id=&#34;nonlinear-dimensionality-reduction-by-locally-linear-embedding:d6a9e0d3e47c951cd76ecbc765d293e7&#34;&gt;Nonlinear Dimensionality Reduction by Locally Linear Embedding&lt;/h3&gt;
+
+&lt;h4 id=&#34;abstract:d6a9e0d3e47c951cd76ecbc765d293e7&#34;&gt;Abstract&lt;/h4&gt;
+
+&lt;h5 id=&#34;problem:d6a9e0d3e47c951cd76ecbc765d293e7&#34;&gt;Problem:&lt;/h5&gt;
+
+&lt;p&gt;How to discover compact representations of high-dimensional data, which can reserve the manifold structure of original data.&lt;/p&gt;
+
+&lt;h5 id=&#34;solution:d6a9e0d3e47c951cd76ecbc765d293e7&#34;&gt;Solution:&lt;/h5&gt;
+
+&lt;p&gt;Locally Linear Embedding (LLE), an unsupervised learning algorithm that computes low-dimensional, neighborhood-preserving embeddings of high-dimensional inputs&lt;/p&gt;
+
+&lt;h4 id=&#34;summary:d6a9e0d3e47c951cd76ecbc765d293e7&#34;&gt;Summary&lt;/h4&gt;
+
+&lt;h5 id=&#34;intuition:d6a9e0d3e47c951cd76ecbc765d293e7&#34;&gt;Intuition&lt;/h5&gt;
+
+&lt;p&gt;The geometric intuition of LLE is that the author expects each data point and its neighbors to lie on or close to a locally linear patch of the manifold, so he characterize the local geometry of these patches by linear coefficients that reconstruct each data point from its neighbors.&lt;/p&gt;
+
+&lt;h5 id=&#34;methods:d6a9e0d3e47c951cd76ecbc765d293e7&#34;&gt;Methods&lt;/h5&gt;
+
+&lt;p&gt;Based on this intuition, the author defines a cost function:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L5/Screen%20Shot%202016-03-21%20at%2011.11.06%20PM.png&#34; alt=&#34;&#34; /&gt;
+This cost function subjects to 2 constraints:
+(1) enforcing W_ij   0 if X_j does not belong to the set of neighbors of X_i;
+(2) &lt;img src=&#34;http://Mithril-NTU.github.io/L5/Screen%20Shot%202016-03-21%20at%2011.13.30%20PM.png&#34; alt=&#34;&#34; /&gt;
+Through minimising the cost function, which is a least-squares problem, we can get weights that reflect intrinsic geometric properties of the data that are invariant to rotations, rescalings, and translations of that data point and its neigh- bors.&lt;/p&gt;
+
+&lt;p&gt;Then the author maps the high dimension data to a low dimension vector representing global internal coordinates on the manifold based on the weights we get above. To get the best result, the author minimises a cost function as following:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L5/Screen%20Shot%202016-03-21%20at%2011.34.36%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The procedures described above can be shown in the figure below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L5/Screen%20Shot%202016-03-21%20at%2011.37.07%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;examples:d6a9e0d3e47c951cd76ecbc765d293e7&#34;&gt;Examples&lt;/h5&gt;
+
+&lt;p&gt;Two-dimensional embeddings based on LLE of faces and words are shown:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L5/Screen%20Shot%202016-03-21%20at%2011.39.17%20PM.png&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;http://Mithril-NTU.github.io/L5/Screen%20Shot%202016-03-21%20at%2011.39.05%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;advantages:d6a9e0d3e47c951cd76ecbc765d293e7&#34;&gt;Advantages&lt;/h5&gt;
+
+&lt;p&gt;(1) Guarantee the global optimality or convergence;
+(2) Involve less free parameters, which means simply tuning;
+(3) The optimizations of LLE are especially tractable;
+(4) Scales well with the intrinsic manifold dimensionality, d, and do not require adiscretized gridding of the embedding space.
+(5) Avoid the need to solve large dynamic programming problems, and tend to accumulate very sparse matrices, whose structure can be exploited for savings in time and space.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>L4_PAPER</title>
+      <link>http://mithril-ntu.github.io/L4_PAPER/</link>
+      <pubDate>Wed, 16 Mar 2016 20:38:14 +0800</pubDate>
+      
+      <guid>http://mithril-ntu.github.io/L4_PAPER/</guid>
+      <description>
+
+&lt;h3 id=&#34;icml-09:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;ICML‘09&lt;/h3&gt;
+
+&lt;h3 id=&#34;online-dictionary-learning-for-sparse-coding:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;Online Dictionary Learning for Sparse Coding&lt;/h3&gt;
+
+&lt;h4 id=&#34;abstract:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;Abstract&lt;/h4&gt;
+
+&lt;h5 id=&#34;problem:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;Problem&lt;/h5&gt;
+
+&lt;p&gt;To learn basis elements, of which we model data vectors as linear combination, especially on large-scale datasets&lt;/p&gt;
+
+&lt;h5 id=&#34;solution:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;Solution&lt;/h5&gt;
+
+&lt;p&gt;Propose a online optimization algorithm for dictionary learning based on stochastic approximations
+(A proof of convergence is provided.)&lt;/p&gt;
+
+&lt;h4 id=&#34;introduction:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;Introduction&lt;/h4&gt;
+
+&lt;p&gt;Learning the dictionary instead of using predefined off-the-shelf bases has been shown to dramatically improve signal reconstruction.But, todays’ methods can’t handle large-scale datasets.
+To address this problem, the author proposes a method based on stochastic approximation that process one element of the training set at a time. It is shown to be go further and exploit the specific structure of sparse coding.&lt;/p&gt;
+
+&lt;h4 id=&#34;paper-structure:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;Paper structure&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;2. Problem Statement
+
+3. Online Dictionary Learning
+3.1. Algorithm Outline
+3.2. Sparse Coding
+3.3. Dcitionary Update
+3.4. Optimizing the Algorithm
+
+4. Convergence Analysis
+4.1. Assumptions
+4.2. Main Result and Proof Sketches
+
+5. Experimental Validation
+5.1. Performance Evaluation
+5.2. Application to Inpainting
+
+6. Discussion
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;2-problem-statement:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;2. Problem Statement&lt;/h4&gt;
+
+&lt;p&gt;Training set X = [x_1,x_2,…,x_n] in R^(m*n).
+The empirical cost function:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%203.51.43%20PM.png&#34; alt=&#34;&#34; /&gt;
+where D is in R^(m×k).
+The author defines l(x,D) as following:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%203.53.11%20PM.png&#34; alt=&#34;&#34; /&gt;
+where λ is a l1 regularization parameter to yield a sparse solution for α.
+To prevent D from being arbitrarily large, the author constraints D in a convex set C:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%203.56.02%20PM.png&#34; alt=&#34;&#34; /&gt;
+In conclusion, the problem is stated as below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%203.57.15%20PM.png&#34; alt=&#34;&#34; /&gt;
+As this problem has 2 variables, the author tries to solve the problem by alternating between the 2 variables, minimizing over one while keeping the other one fixed.&lt;/p&gt;
+
+&lt;p&gt;In particular, given a finite training set, one should not spend too much effort on accurately minimizing the empirical cost, since it is only an approximation of the expected cost.
+The expected cost is shown as following:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%204.05.02%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To address this problem, the author proposes a new method based on stochastic approximations but exploits the specific structure of the problem to solve it(especially no need to tune the learning rate ρ).
+SG update is shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%204.14.17%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;3-online-dictionary-learning:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;3. Online Dictionary Learning&lt;/h4&gt;
+
+&lt;h5 id=&#34;3-1-algorithm-outline:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;3.1. Algorithm Outline&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%204.41.44%20PM.png&#34; alt=&#34;&#34; /&gt;
+D_t is computed by minimizing over C the function:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%204.42.45%20PM.png&#34; alt=&#34;&#34; /&gt;
+This quadratic function acts as a surrogate for f_t, so D_t can be obtained efficiently using D_(t-1) as warm start&lt;/p&gt;
+
+&lt;h5 id=&#34;3-2-sparse-coding:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;3.2. Sparse Coding&lt;/h5&gt;
+
+&lt;p&gt;Because of the high correlation between the columns in D, the author chooses the LARS-Lasso algorithm to get α.&lt;/p&gt;
+
+&lt;h5 id=&#34;3-3-dictionary-update:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;3.3. Dictionary Update&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%204.45.46%20PM.png&#34; alt=&#34;&#34; /&gt;
+The algorithm for updating the dictionary uses block-coordinate descent with warm restarts, and one of its main advantages is that it is parameter-free and does not require any learning rate tuning, which can be difficult in a constrained optimization setting.&lt;/p&gt;
+
+&lt;h5 id=&#34;3-4-optimizing-the-algorithm:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;3.4. Optimizing the Algorithm&lt;/h5&gt;
+
+&lt;p&gt;Some practical tricks:
+1) Handling Fixed-size Datasets:
+If the same signal x is drawn again at time t &amp;gt; t_0, one would like to remove the “old” information concerning x from A_t and B_t —- that is,
+&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%205.08.31%20PM.png&#34; alt=&#34;&#34; /&gt;
+2) Mini-Batch Extension
+For efficiency, the author uses mini-Batch(η signals) in each iteration.
+&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%205.10.38%20PM.png&#34; alt=&#34;&#34; /&gt;
+3) Purging the dictionary from Unused Atoms
+Replace unused atoms during the optimization by elements of the training set&lt;/p&gt;
+
+&lt;h4 id=&#34;4-convergence-analysis:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;4. Convergence Analysis&lt;/h4&gt;
+
+&lt;h5 id=&#34;4-1-assumptions:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;4.1. Assumptions&lt;/h5&gt;
+
+&lt;p&gt;1) The data admits a bounded probability density p with compact support K.
+2) The quadratic surrogate functions fˆ_t are strictly convex with lower-bounded Hessians.
+3) A sufficient uniqueness condition of the sparse coding solution is verified.&lt;/p&gt;
+
+&lt;h5 id=&#34;4-2-main-result-and-proof-sketches:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;4.2. Main Result and Proof Sketches&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%208.29.55%20PM.png&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%208.30.06%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;5-experimental-validation:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;5. Experimental Validation&lt;/h4&gt;
+
+&lt;h5 id=&#34;5-1-performance-evaluation:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;5.1. Performance Evaluation&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%208.33.07%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;5-2-application-to-inpainting:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;5.2. Application to Inpainting&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L4/Screen%20Shot%202016-03-16%20at%208.34.40%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;6-discussion:6e9caa20e3502a65896320b3023d9e3d&#34;&gt;6. Discussion&lt;/h4&gt;
+
+&lt;p&gt;Advantage of this method:&lt;/p&gt;
+
+&lt;p&gt;1) Significantly faster than batch alternatives on large datasets&lt;/p&gt;
+
+&lt;p&gt;2) Not require learning rate tuning like regular stochastic gradient descent methods&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>L3_PAPER</title>
@@ -87,15 +281,22 @@ b) Let R = S’S^T
 
 &lt;h5 id=&#34;3-1-datasets:f809bb8f2a579f5c8d55fa3650d344a6&#34;&gt;3.1. Datasets&lt;/h5&gt;
 
-&lt;p&gt;1) CIFAR dataset; 2)580000 Tiny images&lt;/p&gt;
+&lt;p&gt;1) CIFAR dataset;
+2)580000 Tiny images&lt;/p&gt;
 
 &lt;h5 id=&#34;3-2-protocols-and-baseline-methods:f809bb8f2a579f5c8d55fa3650d344a6&#34;&gt;3.2. Protocols and Baseline Methods&lt;/h5&gt;
 
 &lt;p&gt;Protocols:
 1) To evaluate performance of nearest neighbor search using Euclidean neighbors as ground truth
-2) To evaluate the semantic consistency of codes produced by different methods by using class labels as ground truth.
-Baseline methods:
-1) LSH; 2) PCA-Direct; 3) PCA-RR; 4) SH; 5) SKLSH; 6) PCA-Nonorth&lt;/p&gt;
+2) To evaluate the semantic consistency of codes produced by different methods by using class labels as ground truth.&lt;/p&gt;
+
+&lt;p&gt;Baseline methods:
+1) LSH;
+2) PCA-Direct;
+3) PCA-RR;
+4) SH;
+5) SKLSH;
+6) PCA-Nonorth&lt;/p&gt;
 
 &lt;h5 id=&#34;3-3-results-on-cifar-dataset:f809bb8f2a579f5c8d55fa3650d344a6&#34;&gt;3.3. Results on CIFAR Dataset&lt;/h5&gt;
 
@@ -119,9 +320,11 @@ The author compares his method with a semi-supervised approach(SSH):
 &lt;h4 id=&#34;5-discussion:f809bb8f2a579f5c8d55fa3650d344a6&#34;&gt;5. Discussion&lt;/h4&gt;
 
 &lt;p&gt;Contributions of this paper:
-1) Show that the performance of PCA-based binary coding schemes can be greatly improved by simply rotating the projected data.
-2) Demonstrate an iterative quantization method for refining this rotation that is very natural and effective.
-Limitation:
+1) Show that the performance of PCA-based binary coding schemes can be greatly improved by simply rotating the projected data.&lt;/p&gt;
+
+&lt;p&gt;2) Demonstrate an iterative quantization method for refining this rotation that is very natural and effective.&lt;/p&gt;
+
+&lt;p&gt;Limitation:
 Use one bit per projected data dimension.&lt;/p&gt;
 </description>
     </item>
@@ -187,16 +390,14 @@ It proposes an image representation that provides high search accuracy with reas
 
 &lt;h5 id=&#34;2-3-vlad:87f4392be42726eab66708aaabb6a62d&#34;&gt;2.3. VLAD&lt;/h5&gt;
 
-&lt;ol&gt;
-&lt;li&gt;Use SIFT descriptors &amp;amp; Learn k “visual words” ;
-&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%204.36.18%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Compute VLAD；
-&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%204.36.36%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;v is subsequently L2 -normalized；
+&lt;p&gt;1) Use SIFT descriptors &amp;amp; Learn k “visual words” ;
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%204.36.18%20PM.png&#34; alt=&#34;&#34; /&gt;
+2) Compute VLAD；
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%204.36.36%20PM.png&#34; alt=&#34;&#34; /&gt;
+3) v is subsequently L2 -normalized；
 &lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%204.39.34%20PM.png&#34; alt=&#34;&#34; /&gt;
 The whole computation is like following:
-&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%204.40.27%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;img src=&#34;http://Mithril-NTU.github.io/AMMAI_L2/Screen%20Shot%202016-03-14%20at%204.40.27%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;3-from-vectors-to-codes:87f4392be42726eab66708aaabb6a62d&#34;&gt;3. From vectors to codes&lt;/h4&gt;
 
