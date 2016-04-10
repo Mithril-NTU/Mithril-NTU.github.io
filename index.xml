@@ -6,8 +6,76 @@
     <description>Recent content on Daniel Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 Mar 2016 23:46:37 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 10 Apr 2016 17:11:27 +0800</lastBuildDate>
     <atom:link href="http://Mithril-NTU.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>L6_PAPER</title>
+      <link>http://mithril-ntu.github.io/L6_PAPER/</link>
+      <pubDate>Sun, 10 Apr 2016 17:11:27 +0800</pubDate>
+      
+      <guid>http://mithril-ntu.github.io/L6_PAPER/</guid>
+      <description>
+
+&lt;h3 id=&#34;cvpr-05:c72d5234a95e9488aa0b579f888ff00d&#34;&gt;CVPR‘05&lt;/h3&gt;
+
+&lt;h3 id=&#34;a-bayesian-hierarchical-model-for-learning-natural-scene-categories:c72d5234a95e9488aa0b579f888ff00d&#34;&gt;A Bayesian Hierarchical Model for Learning Natural Scene Categories&lt;/h3&gt;
+
+&lt;h4 id=&#34;introduction:c72d5234a95e9488aa0b579f888ff00d&#34;&gt;Introduction&lt;/h4&gt;
+
+&lt;p&gt;The main problem in this paper is to learn and recognize natural scene categories without human annotation. According to previous work, it turns out that the key point to classify scenes is to use some intermediate representations. However, this kind of methods need tedious ,somewhat arbitrary and possibly sub-optimal, manual annotation. So this paper’s author proposes a new method which is incorporated with models used in texture classification. A scene image can be divide into many local regions(described by codewords) and these regions can be clustering to different themes and then to different categories.
+The main framework is shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%203.28.57%20PM.png&#34; alt=&#34;&#34; /&gt;
+1. Divide training images into different patches and represent these patches as part of different themes
+2. Learns the theme distributions over categories as well as the codewords distribution over the themes without supervision, the author’s method is based on LDA.
+3. Represent testing images with codewords and classify them to the label that gives the highest likelihood probability&lt;/p&gt;
+
+&lt;h4 id=&#34;approach-details:c72d5234a95e9488aa0b579f888ff00d&#34;&gt;Approach details&lt;/h4&gt;
+
+&lt;h6 id=&#34;model-details:c72d5234a95e9488aa0b579f888ff00d&#34;&gt;Model details&lt;/h6&gt;
+
+&lt;p&gt;The model we need to learn is shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%203.41.25%20PM.png&#34; alt=&#34;&#34; /&gt;
+The meaning of notations in the above image is shown in red.&lt;/p&gt;
+
+&lt;p&gt;Based on this model, the joint probability of of a theme mixture π, a set of N themes z, a set of N patches x and the category c is
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%203.45.39%20PM.png&#34; alt=&#34;&#34; /&gt;
+where function Dir() is
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%203.45.48%20PM.png&#34; alt=&#34;&#34; /&gt;
+According to this, we easily know that when x, Θ and β is given, the probability of a scene class c is
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%203.51.52%20PM.png&#34; alt=&#34;&#34; /&gt;
+where the last term is
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%203.56.33%20PM.png&#34; alt=&#34;&#34; /&gt;
+Using Jensen’s inequality, we can bound this log likelihood as following:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%203.57.15%20PM.png&#34; alt=&#34;&#34; /&gt;
+By letting L(γ,φ;θ,β) denote the RHS of the above equation, we have:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%203.57.39%20PM.png&#34; alt=&#34;&#34; /&gt;
+where the second term on the RHS of the above equation stands for the Kullback-Leibler distance of two probabil- ity densities.
+Through iteratively estimating the variational parameters γ and φ and then estimating the model parameters θ and β in turn, we can maxmize the log likelihood term log p(x|θ, β, c).&lt;/p&gt;
+
+&lt;h5 id=&#34;feature-details:c72d5234a95e9488aa0b579f888ff00d&#34;&gt;Feature details&lt;/h5&gt;
+
+&lt;p&gt;The author extracts local regions from images in several ways:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%204.05.58%20PM.png&#34; alt=&#34;&#34; /&gt;
+And then he represents these regions by 2 different features: normalized 11 × 11 pixel gray values and a 128−dim SIFT vector.
+The codebook is learned by K-means algorithm.
+The comparison result is:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%205.05.54%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;experiments:c72d5234a95e9488aa0b579f888ff00d&#34;&gt;Experiments&lt;/h4&gt;
+
+&lt;p&gt;The dataset used for the experiment contains 13 categories.
+The classification result is shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%204.12.50%20PM.png&#34; alt=&#34;&#34; /&gt;
+We can see that using both the best and second best choices, the mean categorization result is up to 82.3%. In the confusing table, it’s obvious that four indoor categories suffer severe confusion with each other. The main reason is that the distribution of both the themes and the codewords of these four indoor categories is similar:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%204.16.50%20PM.png&#34; alt=&#34;&#34; /&gt;
+This also can be proved by their relationship shown in the dendrogram:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%205.04.14%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The author also compares the other things:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L6/Screen%20Shot%202016-04-10%20at%205.04.51%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>L5_PAPER</title>

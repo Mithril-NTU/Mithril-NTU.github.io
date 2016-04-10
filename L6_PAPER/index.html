@@ -1,0 +1,129 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> L6_PAPER &middot; Daniel Liu </title>
+
+  
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/poole.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/syntax.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daniel Liu" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://mithril-ntu.github.io/"><h1>Daniel Liu</h1></a>
+      <p class="lead">
+       This is Daniel&#39;s Blog. 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/L2_PAPER/"> L2_PAPER </a></li>
+      
+        <li><a href="/L3_PAPER/"> L3_PAPER </a></li>
+      
+        <li><a href="/L4_PAPER/"> L4_PAPER </a></li>
+      
+        <li><a href="/L5_PAPER/"> L5_PAPER </a></li>
+      
+        <li><a href="/L6_PAPER/"> L6_PAPER </a></li>
+      
+        <li><a href="/welcome/"> Welcome </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>L6_PAPER</h1>
+			  <span class="post-date">Sun, Apr 10, 2016</span>
+			      
+
+<h3 id="cvpr-05:c72d5234a95e9488aa0b579f888ff00d">CVPR‘05</h3>
+
+<h3 id="a-bayesian-hierarchical-model-for-learning-natural-scene-categories:c72d5234a95e9488aa0b579f888ff00d">A Bayesian Hierarchical Model for Learning Natural Scene Categories</h3>
+
+<h4 id="introduction:c72d5234a95e9488aa0b579f888ff00d">Introduction</h4>
+
+<p>The main problem in this paper is to learn and recognize natural scene categories without human annotation. According to previous work, it turns out that the key point to classify scenes is to use some intermediate representations. However, this kind of methods need tedious ,somewhat arbitrary and possibly sub-optimal, manual annotation. So this paper’s author proposes a new method which is incorporated with models used in texture classification. A scene image can be divide into many local regions(described by codewords) and these regions can be clustering to different themes and then to different categories.
+The main framework is shown below:
+<img src="/L6/Screen%20Shot%202016-04-10%20at%203.28.57%20PM.png" alt="" />
+1. Divide training images into different patches and represent these patches as part of different themes
+2. Learns the theme distributions over categories as well as the codewords distribution over the themes without supervision, the author’s method is based on LDA.
+3. Represent testing images with codewords and classify them to the label that gives the highest likelihood probability</p>
+
+<h4 id="approach-details:c72d5234a95e9488aa0b579f888ff00d">Approach details</h4>
+
+<h6 id="model-details:c72d5234a95e9488aa0b579f888ff00d">Model details</h6>
+
+<p>The model we need to learn is shown below:
+<img src="/L6/Screen%20Shot%202016-04-10%20at%203.41.25%20PM.png" alt="" />
+The meaning of notations in the above image is shown in red.</p>
+
+<p>Based on this model, the joint probability of of a theme mixture π, a set of N themes z, a set of N patches x and the category c is
+<img src="/L6/Screen%20Shot%202016-04-10%20at%203.45.39%20PM.png" alt="" />
+where function Dir() is
+<img src="/L6/Screen%20Shot%202016-04-10%20at%203.45.48%20PM.png" alt="" />
+According to this, we easily know that when x, Θ and β is given, the probability of a scene class c is
+<img src="/L6/Screen%20Shot%202016-04-10%20at%203.51.52%20PM.png" alt="" />
+where the last term is
+<img src="/L6/Screen%20Shot%202016-04-10%20at%203.56.33%20PM.png" alt="" />
+Using Jensen’s inequality, we can bound this log likelihood as following:
+<img src="/L6/Screen%20Shot%202016-04-10%20at%203.57.15%20PM.png" alt="" />
+By letting L(γ,φ;θ,β) denote the RHS of the above equation, we have:
+<img src="/L6/Screen%20Shot%202016-04-10%20at%203.57.39%20PM.png" alt="" />
+where the second term on the RHS of the above equation stands for the Kullback-Leibler distance of two probabil- ity densities.
+Through iteratively estimating the variational parameters γ and φ and then estimating the model parameters θ and β in turn, we can maxmize the log likelihood term log p(x|θ, β, c).</p>
+
+<h5 id="feature-details:c72d5234a95e9488aa0b579f888ff00d">Feature details</h5>
+
+<p>The author extracts local regions from images in several ways:
+<img src="/L6/Screen%20Shot%202016-04-10%20at%204.05.58%20PM.png" alt="" />
+And then he represents these regions by 2 different features: normalized 11 × 11 pixel gray values and a 128−dim SIFT vector.
+The codebook is learned by K-means algorithm.
+The comparison result is:
+<img src="/L6/Screen%20Shot%202016-04-10%20at%205.05.54%20PM.png" alt="" /></p>
+
+<h4 id="experiments:c72d5234a95e9488aa0b579f888ff00d">Experiments</h4>
+
+<p>The dataset used for the experiment contains 13 categories.
+The classification result is shown below:
+<img src="/L6/Screen%20Shot%202016-04-10%20at%204.12.50%20PM.png" alt="" />
+We can see that using both the best and second best choices, the mean categorization result is up to 82.3%. In the confusing table, it’s obvious that four indoor categories suffer severe confusion with each other. The main reason is that the distribution of both the themes and the codewords of these four indoor categories is similar:
+<img src="/L6/Screen%20Shot%202016-04-10%20at%204.16.50%20PM.png" alt="" />
+This also can be proved by their relationship shown in the dendrogram:
+<img src="/L6/Screen%20Shot%202016-04-10%20at%205.04.14%20PM.png" alt="" /></p>
+
+<p>The author also compares the other things:
+<img src="/L6/Screen%20Shot%202016-04-10%20at%205.04.51%20PM.png" alt="" /></p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>
