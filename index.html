@@ -38,6 +38,8 @@
     <ul class="sidebar-nav">
       <li><a href="/">Home</a> </li>
       
+        <li><a href="/HD_LBP/"> HD_LBP </a></li>
+      
         <li><a href="/L2_PAPER/"> L2_PAPER </a></li>
       
         <li><a href="/L3_PAPER/"> L3_PAPER </a></li>
@@ -61,6 +63,79 @@
 <div class="posts">
 
       
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://mithril-ntu.github.io/HD_LBP/">
+        HD_LBP
+      </a>
+    </h1>
+
+    <span class="post-date">Sun, Apr 17, 2016</span>
+
+    
+
+<h3 id="cvpr-13:d8e10a38c5169f493ef99a37c63f86f5">CVPR’13</h3>
+
+<h3 id="blessing-of-dimensionality-high-dimensional-feature-and-its-efficient-compression-for-face-verification:d8e10a38c5169f493ef99a37c63f86f5">Blessing of Dimensionality: High-dimensional Feature and Its Efficient Compression for Face Verification</h3>
+
+<h4 id="apporach:d8e10a38c5169f493ef99a37c63f86f5">Apporach</h4>
+
+<p>This paper has two main contributions:</p>
+
+<h5 id="a-show-that-high-dimensionality-is-critical-to-high-performance:d8e10a38c5169f493ef99a37c63f86f5">(A)Show that high dimensionality is critical to high performance</h5>
+
+<p>The author uses explicit shape regression to locate accurate landmarks on faces and then rectify similarity transformation based on five land- marks (eyes, nose, and mouth corners). With the location of these landmarks, the author extracts multi-scale patches around them and divide these patches into cells. Finally, these cells are coded by some local descriptors.
+<img src="/CVPR13_DongChen/Screen%20Shot%202016-04-17%20at%2011.03.37%20AM.png" alt="" /></p>
+
+<h5 id="b-propose-a-sparse-projection-method-named-rotated-sparse-regression:d8e10a38c5169f493ef99a37c63f86f5">(B)Propose a  sparse projection method, named rotated sparse regression</h5>
+
+<p>Firstly, the author adopts PCA for feature dimension reduction and uses some supervised subspace learning methods like LDA or Joint Beyesian to extract discriminative information for face recognition and (potentially) further reduce the dimension.
+Secondly, he uses propose a  sparse projection method, named rotated sparse regression, to learn a sparse linear projection.
+This RSR(rotated sparse regression) is based on this sparse coding function:
+<img src="/CVPR13_DongChen/Screen%20Shot%202016-04-17%20at%2011.12.47%20AM.png" alt="" />
+By adding a rotation matrix R, this becomes to:
+<img src="/CVPR13_DongChen/Screen%20Shot%202016-04-17%20at%2011.12.55%20AM.png" alt="" />
+Though fixing R and B in turn, we can optimize them iteratively.
+Finally, we can get a linear projection matrix B with additional freedom in rotation.
+<img src="/CVPR13_DongChen/Screen%20Shot%202016-04-17%20at%2011.17.58%20AM.png" alt="" /></p>
+
+<h4 id="experiment:d8e10a38c5169f493ef99a37c63f86f5">Experiment</h4>
+
+<h5 id="the-high-dimensional-feature-is-better:d8e10a38c5169f493ef99a37c63f86f5">The High-dimensional feature is better</h5>
+
+<p><img src="/CVPR13_DongChen/Screen%20Shot%202016-04-17%20at%2011.24.57%20AM.png" alt="" />
+The author first compares their results with baseline feature extracted from regular grids to show that sampling at the landmarks leads to comparatively better performance, which indicates sampling at the landmarks effectively reduce the intra-personal geometric variations due to pose and expressions.
+Then he compares different scale number and landmark number:
+<img src="/CVPR13_DongChen/Screen%20Shot%202016-04-17%20at%2011.27.34%20AM.png" alt="" /></p>
+
+<h5 id="large-scale-dataset-favors-high-dimensionality:d8e10a38c5169f493ef99a37c63f86f5">Large scale dataset favors high dimensionality</h5>
+
+<p><img src="/CVPR13_DongChen/Screen%20Shot%202016-04-17%20at%2011.28.39%20AM.png" alt="" />
+The author uses a new and larger dataset named WDRef to evaluate the performance of large scale dataset. It turns out that  high dimensionality plays an even more important role when the size of the training set becomes larger.</p>
+
+<h5 id="high-dimensional-feature-with-unsupervised-learning:d8e10a38c5169f493ef99a37c63f86f5">High-dimensional feature with unsupervised learning</h5>
+
+<p><img src="/CVPR13_DongChen/Screen%20Shot%202016-04-17%20at%2011.31.53%20AM.png" alt="" />
+The high dimension feature also leads to high performance in unsupervised learning.</p>
+
+<h5 id="compression-by-rotated-sparse-regression:d8e10a38c5169f493ef99a37c63f86f5">Compression by rotated sparse regression</h5>
+
+<p>By varying the value of 𝜆, the author compares the sparse regression and the rotated sparse regression under different sparsity.
+<img src="/CVPR13_DongChen/Screen%20Shot%202016-04-17%20at%2011.34.41%20AM.png" alt="" />
+RSR can reduce the cost of linear projection by 100 times with less than 0.1% accuracy drop.</p>
+
+<h5 id="comparison-with-feature-selection:d8e10a38c5169f493ef99a37c63f86f5">Comparison with Feature Selection</h5>
+
+<p><img src="/CVPR13_DongChen/Screen%20Shot%202016-04-17%20at%2011.35.48%20AM.png" alt="" />
+The author compare the rotated sparse regression and two feature selection methods: backward greedy and structure sparsity.
+This result verifies the effectiveness of the proposed method (RSR). It also indicates that the majority of dimensions in our high-dimensional feature are informative and complementary.</p>
+
+<h5 id="comparison-with-the-state-of-the-art:d8e10a38c5169f493ef99a37c63f86f5">Comparison with the state-of-the-art</h5>
+
+<p><img src="/CVPR13_DongChen/Screen%20Shot%202016-04-17%20at%2011.40.25%20AM.png" alt="" /></p>
+
+  </div>
+  
   <div class="post">
     <h1 class="post-title">
       <a href="http://mithril-ntu.github.io/L6_PAPER/">
