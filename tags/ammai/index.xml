@@ -6,8 +6,69 @@
     <description>Recent content in Ammai on Daniel Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 17 Apr 2016 11:47:29 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 Apr 2016 16:43:50 +0800</lastBuildDate>
     <atom:link href="http://Mithril-NTU.github.io/tags/ammai/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>L7_PAPER</title>
+      <link>http://mithril-ntu.github.io/L7_PAPER/</link>
+      <pubDate>Tue, 19 Apr 2016 16:43:50 +0800</pubDate>
+      
+      <guid>http://mithril-ntu.github.io/L7_PAPER/</guid>
+      <description>
+
+&lt;h3 id=&#34;nips-14:9c4afc3940f2cf7cbf85c1866eccd57b&#34;&gt;NIPS‘14&lt;/h3&gt;
+
+&lt;h3 id=&#34;two-stream-convolutional-networks-for-action-recognition-in-videos:9c4afc3940f2cf7cbf85c1866eccd57b&#34;&gt;Two-Stream Convolutional Networks for Action Recognition in Videos&lt;/h3&gt;
+
+&lt;h4 id=&#34;introduction:9c4afc3940f2cf7cbf85c1866eccd57b&#34;&gt;Introduction&lt;/h4&gt;
+
+&lt;p&gt;The main contribution of this paper can be divided into 3 parts: &lt;strong&gt;a)&lt;/strong&gt; Propose a new two stream(spatial and temporal streams) ConvNet architecture for action recognition; &lt;strong&gt;b)&lt;/strong&gt; Prove that a ConvNet trained on multi-frame dense optical flow can achieve good performance even if there are little training data; &lt;strong&gt;c)&lt;/strong&gt; Propose multi-task learning which can overcome increase training data and improve the performance on both tasks.&lt;/p&gt;
+
+&lt;p&gt;This 2 stream ConvNet architecture is based on the hypothesis that the human visual cortex contains two pathways: the ventral stream (which performs object recognition) and the dorsal stream (which recognises motion).&lt;/p&gt;
+
+&lt;h4 id=&#34;two-stream-convnet-architecture:9c4afc3940f2cf7cbf85c1866eccd57b&#34;&gt;Two stream ConvNet architecture&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L7/Screen%20Shot%202016-04-19%20at%203.24.33%20PM.png&#34; alt=&#34;&#34; /&gt;
+The authors divide the video into 2 streams which carry different information and then are processed by their corresponding ConvNets. The softmax output of these two ConvNets are combined by late fusion.&lt;/p&gt;
+
+&lt;h5 id=&#34;spatial-stream-convnet:9c4afc3940f2cf7cbf85c1866eccd57b&#34;&gt;Spatial stream ConvNet&lt;/h5&gt;
+
+&lt;p&gt;This ConvNet processes still images extracted from video frames which carry clues about objects and scenes associated with human actions. The author makes good use of the network pre-trainded on the ImageNet challenge dataset to improve this ConvNet.&lt;/p&gt;
+
+&lt;h5 id=&#34;optical-flow-convnets:9c4afc3940f2cf7cbf85c1866eccd57b&#34;&gt;Optical flow ConvNets&lt;/h5&gt;
+
+&lt;p&gt;In this ConvNet, the only difference with the spatial ConvNet’s configurations is that the second normalisation layer is removed  from the latter to reduce memory consumption.
+The authors configure different inputs for this new model: &lt;strong&gt;Optical flow stacking&lt;/strong&gt;, &lt;strong&gt;Trajectory stacking&lt;/strong&gt; and &lt;strong&gt;Bi-directional optical flow&lt;/strong&gt;, which is shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L7/Screen%20Shot%202016-04-19%20at%203.41.26%20PM.png&#34; alt=&#34;&#34; /&gt;
+Moreover, to compensate the camera motion, the authors also perform “&lt;strong&gt;Mean flow subtraction&lt;/strong&gt;” —— from each displacement field &lt;strong&gt;d&lt;/strong&gt; the author subtract its mean vector. This also is generally beneficial to perform zero-centering of the network input, as it allows the model to better exploit the rectification non-linearities.&lt;/p&gt;
+
+&lt;p&gt;The authors think that the hand-crafted features in prior art can be obtained from the displacement field input using a single convolutional layer, which means that they can be generalised by their ConvNets, so as to the HMAX models.&lt;/p&gt;
+
+&lt;h4 id=&#34;multi-task-learning:9c4afc3940f2cf7cbf85c1866eccd57b&#34;&gt;Multi-task learning&lt;/h4&gt;
+
+&lt;p&gt;Unlike the spatial ConvNet which can be pre-trained on ImageNet Challenge dataset, the amount of the data that can be used in the temporal ConNet is less. In order to increase data, the authors set 2 softmax classification layer on top of the last FC layer for different dataset. The overall training loss is computed as the sum of the individual tasks’ losses. Therefore, the whole ConvNet can make use of different datasets for different tasks.&lt;/p&gt;
+
+&lt;h4 id=&#34;experiments:9c4afc3940f2cf7cbf85c1866eccd57b&#34;&gt;Experiments&lt;/h4&gt;
+
+&lt;p&gt;The architecture of 2 stream ConvNet is based on VGG and, for the spatial ConvNet, pre-trained on ImageNet ILSVRC-2012. The datasets used for evaluation are UCF-101 and HMDB-51.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Firstly&lt;/strong&gt;, the authors compare different settings on the spatial and temporal ConvNet. The results are shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L7/Screen%20Shot%202016-04-19%20at%204.17.33%20PM.png&#34; alt=&#34;&#34; /&gt;
+It turns out that fine-tuning on the whole pre-trained model can lead to the best performance, but the improvement is too slightly and  time-consuming. So the authors opt for only training the last layer in following experiments.
+On the other hand, for the temporal ConvNet, using the Optical flow stacking as input is a good choice and it also shows that increasing the number of input flows(L) and performing Mean flow subtraction make a great difference.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Secondly&lt;/strong&gt;, the authors compare different methods to increase the training dataset size: (i) fine-tuning a temporal network pre-trained on UCF-101; (ii) adding 78 classes from UCF-101, which are manually selected so that there is no intersection between these classes and the native HMDB-51 classes; (iii) using the multi-task formulation to learn a video representation, shared between the UCF-101 and HMDB-51 classification tasks. The results is shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L7/Screen%20Shot%202016-04-19%20at%204.33.41%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Thirdly&lt;/strong&gt; ,different fusion methods for combining the softmax scores of the spatial and temporal ConvNet are tested.
+&lt;img src=&#34;http://Mithril-NTU.github.io/L7/Screen%20Shot%202016-04-19%20at%204.35.58%20PM.png&#34; alt=&#34;&#34; /&gt;
+Obviously, the combination of the two nets further improves the results, especially when using SVM for fusion.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Finally&lt;/strong&gt;, by comparing with result in prior art, the architecture proposed in this paper shows its competitive performance.
+&lt;img src=&#34;http://Mithril-NTU.github.io/L7/Screen%20Shot%202016-04-19%20at%204.37.31%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>HD_LBP</title>

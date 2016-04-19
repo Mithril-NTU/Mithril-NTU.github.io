@@ -1,0 +1,126 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> L7_PAPER &middot; Daniel Liu </title>
+
+  
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/poole.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/syntax.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daniel Liu" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://mithril-ntu.github.io/"><h1>Daniel Liu</h1></a>
+      <p class="lead">
+       This is Daniel&#39;s Blog. 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/HD_LBP/"> HD_LBP </a></li>
+      
+        <li><a href="/L2_PAPER/"> L2_PAPER </a></li>
+      
+        <li><a href="/L3_PAPER/"> L3_PAPER </a></li>
+      
+        <li><a href="/L4_PAPER/"> L4_PAPER </a></li>
+      
+        <li><a href="/L5_PAPER/"> L5_PAPER </a></li>
+      
+        <li><a href="/L6_PAPER/"> L6_PAPER </a></li>
+      
+        <li><a href="/L7_PAPER/"> L7_PAPER </a></li>
+      
+        <li><a href="/welcome/"> Welcome </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>L7_PAPER</h1>
+			  <span class="post-date">Tue, Apr 19, 2016</span>
+			      
+
+<h3 id="nips-14:9c4afc3940f2cf7cbf85c1866eccd57b">NIPS‘14</h3>
+
+<h3 id="two-stream-convolutional-networks-for-action-recognition-in-videos:9c4afc3940f2cf7cbf85c1866eccd57b">Two-Stream Convolutional Networks for Action Recognition in Videos</h3>
+
+<h4 id="introduction:9c4afc3940f2cf7cbf85c1866eccd57b">Introduction</h4>
+
+<p>The main contribution of this paper can be divided into 3 parts: <strong>a)</strong> Propose a new two stream(spatial and temporal streams) ConvNet architecture for action recognition; <strong>b)</strong> Prove that a ConvNet trained on multi-frame dense optical flow can achieve good performance even if there are little training data; <strong>c)</strong> Propose multi-task learning which can overcome increase training data and improve the performance on both tasks.</p>
+
+<p>This 2 stream ConvNet architecture is based on the hypothesis that the human visual cortex contains two pathways: the ventral stream (which performs object recognition) and the dorsal stream (which recognises motion).</p>
+
+<h4 id="two-stream-convnet-architecture:9c4afc3940f2cf7cbf85c1866eccd57b">Two stream ConvNet architecture</h4>
+
+<p><img src="/L7/Screen%20Shot%202016-04-19%20at%203.24.33%20PM.png" alt="" />
+The authors divide the video into 2 streams which carry different information and then are processed by their corresponding ConvNets. The softmax output of these two ConvNets are combined by late fusion.</p>
+
+<h5 id="spatial-stream-convnet:9c4afc3940f2cf7cbf85c1866eccd57b">Spatial stream ConvNet</h5>
+
+<p>This ConvNet processes still images extracted from video frames which carry clues about objects and scenes associated with human actions. The author makes good use of the network pre-trainded on the ImageNet challenge dataset to improve this ConvNet.</p>
+
+<h5 id="optical-flow-convnets:9c4afc3940f2cf7cbf85c1866eccd57b">Optical flow ConvNets</h5>
+
+<p>In this ConvNet, the only difference with the spatial ConvNet’s configurations is that the second normalisation layer is removed  from the latter to reduce memory consumption.
+The authors configure different inputs for this new model: <strong>Optical flow stacking</strong>, <strong>Trajectory stacking</strong> and <strong>Bi-directional optical flow</strong>, which is shown below:
+<img src="/L7/Screen%20Shot%202016-04-19%20at%203.41.26%20PM.png" alt="" />
+Moreover, to compensate the camera motion, the authors also perform “<strong>Mean flow subtraction</strong>” —— from each displacement field <strong>d</strong> the author subtract its mean vector. This also is generally beneficial to perform zero-centering of the network input, as it allows the model to better exploit the rectification non-linearities.</p>
+
+<p>The authors think that the hand-crafted features in prior art can be obtained from the displacement field input using a single convolutional layer, which means that they can be generalised by their ConvNets, so as to the HMAX models.</p>
+
+<h4 id="multi-task-learning:9c4afc3940f2cf7cbf85c1866eccd57b">Multi-task learning</h4>
+
+<p>Unlike the spatial ConvNet which can be pre-trained on ImageNet Challenge dataset, the amount of the data that can be used in the temporal ConNet is less. In order to increase data, the authors set 2 softmax classification layer on top of the last FC layer for different dataset. The overall training loss is computed as the sum of the individual tasks’ losses. Therefore, the whole ConvNet can make use of different datasets for different tasks.</p>
+
+<h4 id="experiments:9c4afc3940f2cf7cbf85c1866eccd57b">Experiments</h4>
+
+<p>The architecture of 2 stream ConvNet is based on VGG and, for the spatial ConvNet, pre-trained on ImageNet ILSVRC-2012. The datasets used for evaluation are UCF-101 and HMDB-51.</p>
+
+<p><strong>Firstly</strong>, the authors compare different settings on the spatial and temporal ConvNet. The results are shown below:
+<img src="/L7/Screen%20Shot%202016-04-19%20at%204.17.33%20PM.png" alt="" />
+It turns out that fine-tuning on the whole pre-trained model can lead to the best performance, but the improvement is too slightly and  time-consuming. So the authors opt for only training the last layer in following experiments.
+On the other hand, for the temporal ConvNet, using the Optical flow stacking as input is a good choice and it also shows that increasing the number of input flows(L) and performing Mean flow subtraction make a great difference.</p>
+
+<p><strong>Secondly</strong>, the authors compare different methods to increase the training dataset size: (i) fine-tuning a temporal network pre-trained on UCF-101; (ii) adding 78 classes from UCF-101, which are manually selected so that there is no intersection between these classes and the native HMDB-51 classes; (iii) using the multi-task formulation to learn a video representation, shared between the UCF-101 and HMDB-51 classification tasks. The results is shown below:
+<img src="/L7/Screen%20Shot%202016-04-19%20at%204.33.41%20PM.png" alt="" /></p>
+
+<p><strong>Thirdly</strong> ,different fusion methods for combining the softmax scores of the spatial and temporal ConvNet are tested.
+<img src="/L7/Screen%20Shot%202016-04-19%20at%204.35.58%20PM.png" alt="" />
+Obviously, the combination of the two nets further improves the results, especially when using SVM for fusion.</p>
+
+<p><strong>Finally</strong>, by comparing with result in prior art, the architecture proposed in this paper shows its competitive performance.
+<img src="/L7/Screen%20Shot%202016-04-19%20at%204.37.31%20PM.png" alt="" /></p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>
