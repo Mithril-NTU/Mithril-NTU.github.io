@@ -1,0 +1,154 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> L8_PAPER &middot; Daniel Liu </title>
+
+  
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/poole.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/syntax.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daniel Liu" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://mithril-ntu.github.io/"><h1>Daniel Liu</h1></a>
+      <p class="lead">
+       This is Daniel&#39;s Blog. 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/HD_LBP/"> HD_LBP </a></li>
+      
+        <li><a href="/L2_PAPER/"> L2_PAPER </a></li>
+      
+        <li><a href="/L3_PAPER/"> L3_PAPER </a></li>
+      
+        <li><a href="/L4_PAPER/"> L4_PAPER </a></li>
+      
+        <li><a href="/L5_PAPER/"> L5_PAPER </a></li>
+      
+        <li><a href="/L6_PAPER/"> L6_PAPER </a></li>
+      
+        <li><a href="/L7_PAPER/"> L7_PAPER </a></li>
+      
+        <li><a href="/L8_PAPER/"> L8_PAPER </a></li>
+      
+        <li><a href="/welcome/"> Welcome </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>L8_PAPER</h1>
+			  <span class="post-date">Thu, May 5, 2016</span>
+			      
+
+<h3 id="iclr-16:46910f901446ff3425731be83673756d">ICLR’16</h3>
+
+<h3 id="deep-compression-compressing-deep-neural-networks-with-pruning-trained-quantization-and-huffman-coding:46910f901446ff3425731be83673756d">DEEP COMPRESSION: COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING</h3>
+
+<h4 id="introduction:46910f901446ff3425731be83673756d">Introduction</h4>
+
+<p>It is hard to deploy neural networks into embedding systems as these systems have limited memory and power. To solve this problem, this paper proposes a method called “Deep compression” which is composed of 3 steps: pruning, trained quantization and Huffman coding. It can reduce the storage requirement of neural networks by 35X to 49X without affecting their accuracy.
+This pipeline is shown below:
+<img src="/L8/Screen%20Shot%202016-04-28%20at%2012.37.17%20PM.png" alt="" /></p>
+
+<h4 id="pipeline:46910f901446ff3425731be83673756d">Pipeline</h4>
+
+<h5 id="network-pruning:46910f901446ff3425731be83673756d">NETWORK PRUNING</h5>
+
+<p>The main intuition of this step is to remove the redundant connections and keep only the most informative connections.
+The authors first learn the connectivity via normal network training, then remove all connections with weights below some threshold and finally retrain the new network to learn final weights.
+All the new sparse network architecture is stored in compressed sparse row (CSR) or compressed sparse column (CSC) format. To compress further, the index difference is stored instead of the absolute position, and encode this difference in 8 bits for conv layer and 5 bits for fc layer.
+<img src="/L8/Screen%20Shot%202016-04-28%20at%2012.50.00%20PM.png" alt="" />
+Difference larger than the bound is padded by zero.</p>
+
+<h5 id="trained-quantization-and-weight-sharing:46910f901446ff3425731be83673756d">TRAINED QUANTIZATION AND WEIGHT SHARING</h5>
+
+<p>In this step, the authors limit the number of effective weights by having multiple connections share the same weight, and then fine-tune those shared weights. Firstly, the authors use K-means for clustering weights:
+<img src="/L8/Screen%20Shot%202016-04-28%20at%201.08.43%20PM.png" alt="" />
+W = [w_1, w_2, &hellip;, w_n], C= [c_1, c_2, &hellip;, c_k] and  n&gt;&gt;k</p>
+
+<p>Centroid initialization impacts the quality of clustering and thus affects the network’s prediction accuracy. The authors design 3 initialization methods: Forgy(random), density-based, and linear initialization and then examine them in the following experiments.</p>
+
+<p>For updating the shared weight, the gradient of them is calculated as:
+<img src="/L8/Screen%20Shot%202016-04-28%20at%201.14.19%20PM.png" alt="" /></p>
+
+<p>The whole step can be illustrated as below:
+<img src="/L8/Screen%20Shot%202016-04-28%20at%201.14.31%20PM.png" alt="" /></p>
+
+<h5 id="huffman-coding:46910f901446ff3425731be83673756d">HUFFMAN CODING</h5>
+
+<p><img src="/L8/Screen%20Shot%202016-04-28%20at%201.17.06%20PM.png" alt="" />
+As we can see in the above figure, the probability distributions of quantized weights and the sparse matrix index are highly biased. Experiments show that Huffman coding these non-uniformly distributed values saves 20% 30% of network storage.</p>
+
+<h4 id="experiments:46910f901446ff3425731be83673756d">Experiments</h4>
+
+<p>In the experiments, training is performed with the Caffe framework. And the authors use 2 dataset: MNIST and ImageNet.</p>
+
+<h5 id="lenet-300-100-and-lenet-5-on-mnist:46910f901446ff3425731be83673756d">LENET-300-100 AND LENET-5 ON MNIST</h5>
+
+<p><img src="/L8/Screen%20Shot%202016-04-28%20at%201.28.41%20PM.png" alt="" />
+As shown above, we can see that most of the saving comes from pruning and quantization, while Huffman coding gives a marginal gain. Moreover, after compression, there is no loss of accuracy.</p>
+
+<h5 id="vgg-16-and-alexnet-on-imagenet:46910f901446ff3425731be83673756d">VGG-16 and ALEXNET ON IMAGENET</h5>
+
+<p><img src="/L8/Screen%20Shot%202016-04-28%20at%201.32.01%20PM.png" alt="" />
+Tables shown above show that the 2 large networks can be compressed to a low rate of its original size without impacting accuracy.</p>
+
+<h5 id="pruning-and-quantization-working-together:46910f901446ff3425731be83673756d">PRUNING AND QUANTIZATION WORKING TOGETHER</h5>
+
+<p><img src="/L8/Screen%20Shot%202016-04-28%20at%201.35.00%20PM.png" alt="" />
+When working individually, as shown in the purple and yellow lines, accuracy of pruned and quantized networks begin to drop significantly when compressed below 8% of its original size. However, when working together, the network can be compressed to 3% of original size with no loss of accuracy.</p>
+
+<p><img src="/L8/Screen%20Shot%202016-04-28%20at%201.36.55%20PM.png" alt="" />
+The figure shows that pruning and quantization don’t hurt each other.</p>
+
+<p><img src="/L8/Screen%20Shot%202016-04-28%20at%201.38.13%20PM.png" alt="" />
+The authors also compare 3 initialization methods and prove that linear initialization gets the best performance.</p>
+
+<p><img src="/L8/Screen%20Shot%202016-04-28%20at%201.39.54%20PM.png" alt="" />
+The authors compare three different off-the-shelf hardware: the NVIDIA GeForce GTX Titan X and the Intel Core i7 5930K as desktop processors (same package as NVIDIA Digits Dev Box) and NVIDIA Tegra K1 as mobile processor. As shown above, it turns out that the speed and energy efficiency are improved greatly by deep compression.</p>
+
+<p><img src="/L8/Screen%20Shot%202016-04-28%20at%201.45.21%20PM.png" alt="" />
+Different aggressiveness of weight sharing and quantization are also compared.</p>
+
+<p><img src="/L8/Screen%20Shot%202016-04-28%20at%201.49.02%20PM.png" alt="" />
+As quantization adds storage for a codebook, the experiment shows that the overhead of codebook is very small and often negligible.</p>
+
+<p><img src="/L8/Screen%20Shot%202016-04-28%20at%201.50.00%20PM.png" alt="" />
+Finally, results of different related works and the authors’ are
+shown above.</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

@@ -6,8 +6,95 @@
     <description>Recent content in Paper Survey on Daniel Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Apr 2016 16:43:50 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 May 2016 11:10:19 +0800</lastBuildDate>
     <atom:link href="http://Mithril-NTU.github.io/categories/paper-survey/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>L8_PAPER</title>
+      <link>http://mithril-ntu.github.io/L8_PAPER/</link>
+      <pubDate>Thu, 05 May 2016 11:10:19 +0800</pubDate>
+      
+      <guid>http://mithril-ntu.github.io/L8_PAPER/</guid>
+      <description>
+
+&lt;h3 id=&#34;iclr-16:46910f901446ff3425731be83673756d&#34;&gt;ICLR’16&lt;/h3&gt;
+
+&lt;h3 id=&#34;deep-compression-compressing-deep-neural-networks-with-pruning-trained-quantization-and-huffman-coding:46910f901446ff3425731be83673756d&#34;&gt;DEEP COMPRESSION: COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING&lt;/h3&gt;
+
+&lt;h4 id=&#34;introduction:46910f901446ff3425731be83673756d&#34;&gt;Introduction&lt;/h4&gt;
+
+&lt;p&gt;It is hard to deploy neural networks into embedding systems as these systems have limited memory and power. To solve this problem, this paper proposes a method called “Deep compression” which is composed of 3 steps: pruning, trained quantization and Huffman coding. It can reduce the storage requirement of neural networks by 35X to 49X without affecting their accuracy.
+This pipeline is shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%2012.37.17%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;pipeline:46910f901446ff3425731be83673756d&#34;&gt;Pipeline&lt;/h4&gt;
+
+&lt;h5 id=&#34;network-pruning:46910f901446ff3425731be83673756d&#34;&gt;NETWORK PRUNING&lt;/h5&gt;
+
+&lt;p&gt;The main intuition of this step is to remove the redundant connections and keep only the most informative connections.
+The authors first learn the connectivity via normal network training, then remove all connections with weights below some threshold and finally retrain the new network to learn final weights.
+All the new sparse network architecture is stored in compressed sparse row (CSR) or compressed sparse column (CSC) format. To compress further, the index difference is stored instead of the absolute position, and encode this difference in 8 bits for conv layer and 5 bits for fc layer.
+&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%2012.50.00%20PM.png&#34; alt=&#34;&#34; /&gt;
+Difference larger than the bound is padded by zero.&lt;/p&gt;
+
+&lt;h5 id=&#34;trained-quantization-and-weight-sharing:46910f901446ff3425731be83673756d&#34;&gt;TRAINED QUANTIZATION AND WEIGHT SHARING&lt;/h5&gt;
+
+&lt;p&gt;In this step, the authors limit the number of effective weights by having multiple connections share the same weight, and then fine-tune those shared weights. Firstly, the authors use K-means for clustering weights:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.08.43%20PM.png&#34; alt=&#34;&#34; /&gt;
+W = [w_1, w_2, &amp;hellip;, w_n], C= [c_1, c_2, &amp;hellip;, c_k] and  n&amp;gt;&amp;gt;k&lt;/p&gt;
+
+&lt;p&gt;Centroid initialization impacts the quality of clustering and thus affects the network’s prediction accuracy. The authors design 3 initialization methods: Forgy(random), density-based, and linear initialization and then examine them in the following experiments.&lt;/p&gt;
+
+&lt;p&gt;For updating the shared weight, the gradient of them is calculated as:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.14.19%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The whole step can be illustrated as below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.14.31%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;huffman-coding:46910f901446ff3425731be83673756d&#34;&gt;HUFFMAN CODING&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.17.06%20PM.png&#34; alt=&#34;&#34; /&gt;
+As we can see in the above figure, the probability distributions of quantized weights and the sparse matrix index are highly biased. Experiments show that Huffman coding these non-uniformly distributed values saves 20% 30% of network storage.&lt;/p&gt;
+
+&lt;h4 id=&#34;experiments:46910f901446ff3425731be83673756d&#34;&gt;Experiments&lt;/h4&gt;
+
+&lt;p&gt;In the experiments, training is performed with the Caffe framework. And the authors use 2 dataset: MNIST and ImageNet.&lt;/p&gt;
+
+&lt;h5 id=&#34;lenet-300-100-and-lenet-5-on-mnist:46910f901446ff3425731be83673756d&#34;&gt;LENET-300-100 AND LENET-5 ON MNIST&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.28.41%20PM.png&#34; alt=&#34;&#34; /&gt;
+As shown above, we can see that most of the saving comes from pruning and quantization, while Huffman coding gives a marginal gain. Moreover, after compression, there is no loss of accuracy.&lt;/p&gt;
+
+&lt;h5 id=&#34;vgg-16-and-alexnet-on-imagenet:46910f901446ff3425731be83673756d&#34;&gt;VGG-16 and ALEXNET ON IMAGENET&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.32.01%20PM.png&#34; alt=&#34;&#34; /&gt;
+Tables shown above show that the 2 large networks can be compressed to a low rate of its original size without impacting accuracy.&lt;/p&gt;
+
+&lt;h5 id=&#34;pruning-and-quantization-working-together:46910f901446ff3425731be83673756d&#34;&gt;PRUNING AND QUANTIZATION WORKING TOGETHER&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.35.00%20PM.png&#34; alt=&#34;&#34; /&gt;
+When working individually, as shown in the purple and yellow lines, accuracy of pruned and quantized networks begin to drop significantly when compressed below 8% of its original size. However, when working together, the network can be compressed to 3% of original size with no loss of accuracy.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.36.55%20PM.png&#34; alt=&#34;&#34; /&gt;
+The figure shows that pruning and quantization don’t hurt each other.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.38.13%20PM.png&#34; alt=&#34;&#34; /&gt;
+The authors also compare 3 initialization methods and prove that linear initialization gets the best performance.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.39.54%20PM.png&#34; alt=&#34;&#34; /&gt;
+The authors compare three different off-the-shelf hardware: the NVIDIA GeForce GTX Titan X and the Intel Core i7 5930K as desktop processors (same package as NVIDIA Digits Dev Box) and NVIDIA Tegra K1 as mobile processor. As shown above, it turns out that the speed and energy efficiency are improved greatly by deep compression.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.45.21%20PM.png&#34; alt=&#34;&#34; /&gt;
+Different aggressiveness of weight sharing and quantization are also compared.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.49.02%20PM.png&#34; alt=&#34;&#34; /&gt;
+As quantization adds storage for a codebook, the experiment shows that the overhead of codebook is very small and often negligible.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L8/Screen%20Shot%202016-04-28%20at%201.50.00%20PM.png&#34; alt=&#34;&#34; /&gt;
+Finally, results of different related works and the authors’ are
+shown above.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>L7_PAPER</title>
