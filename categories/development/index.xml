@@ -6,8 +6,80 @@
     <description>Recent content in Development on Daniel Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 May 2016 17:12:10 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 May 2016 00:22:17 +0800</lastBuildDate>
     <atom:link href="http://Mithril-NTU.github.io/categories/development/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>L12_PAPER</title>
+      <link>http://mithril-ntu.github.io/L12_PAPER/</link>
+      <pubDate>Thu, 19 May 2016 00:22:17 +0800</pubDate>
+      
+      <guid>http://mithril-ntu.github.io/L12_PAPER/</guid>
+      <description>
+
+&lt;h3 id=&#34;arxiv-16:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;arXiv’16&lt;/h3&gt;
+
+&lt;h3 id=&#34;text-understanding-from-scratch:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Text Understanding from Scratch&lt;/h3&gt;
+
+&lt;h4 id=&#34;introduction:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Introduction&lt;/h4&gt;
+
+&lt;p&gt;This paper proposes a method based on temporal ConvNet which performs surprisingly without any knowledge of words, phrases, sentences and any other syntactic or semantic structures. The authors think that ConvNet operating on characters can learn the hierarchical representations of words, phrases and sentences by itself with a lot of data.&lt;/p&gt;
+
+&lt;h4 id=&#34;convnet-model-design:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;ConvNet Model Design&lt;/h4&gt;
+
+&lt;h5 id=&#34;key-modules:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Key modules&lt;/h5&gt;
+
+&lt;p&gt;The key modules used in this paper are similar to what we used in Computer Vision.
+The &lt;strong&gt;convolutional&lt;/strong&gt; layer is defined as the following equation:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L12/Screen%20Shot%202016-05-18%20at%209.01.52%20PM.png&#34; alt=&#34;&#34; /&gt;
+where d is the stride, c=k-d+1 is an offset constant, f(x) is kernel function, g(x) is input function and h(y) is the final output function.
+The &lt;strong&gt;max-pooling&lt;/strong&gt; layer is defined as below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L12/Screen%20Shot%202016-05-18%20at%209.06.39%20PM.png&#34; alt=&#34;&#34; /&gt;
+The &lt;strong&gt;activation&lt;/strong&gt; function is &lt;strong&gt;h(x)=max{0,x}&lt;/strong&gt;, which is similar to the ReLu.&lt;/p&gt;
+
+&lt;h5 id=&#34;character-quantization:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Character quantization&lt;/h5&gt;
+
+&lt;p&gt;The authors first prescribe an alphabet of size m for the input language and then quantize each character using 1-of-m encoding. So, in the end, the input text becomes a l*m matrix, where l means the number of frames and m means the size of each frame. After this quantization, our binary encoding is similar to Braille which is assisting blind reading:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L12/Screen%20Shot%202016-05-18%20at%209.18.06%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;model-design:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Model Design&lt;/h5&gt;
+
+&lt;p&gt;The whole ConvNet framework of this paper is shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L12/Screen%20Shot%202016-05-18%20at%209.19.42%20PM.png&#34; alt=&#34;&#34; /&gt;
+which has 6 Conv layers and 3 FC layers.&lt;/p&gt;
+
+&lt;h5 id=&#34;data-augmentation:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Data augmentation&lt;/h5&gt;
+
+&lt;p&gt;Synonym replacement with an English thesaurus has been used for data augmentation.&lt;/p&gt;
+
+&lt;h4 id=&#34;experiments:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Experiments&lt;/h4&gt;
+
+&lt;h5 id=&#34;performance-on-ontology-classification:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Performance on Ontology Classification&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L12/Screen%20Shot%202016-05-18%20at%209.25.01%20PM.png&#34; alt=&#34;&#34; /&gt;
+As we can see, a proper thesaurus augmentation works well for model generalisation.
+&lt;img src=&#34;http://Mithril-NTU.github.io/L12/Screen%20Shot%202016-05-18%20at%209.30.32%20PM.png&#34; alt=&#34;&#34; /&gt;
+In the visualization, black (or white) indicates large negative (or positive) values, and gray indicates values near zero. It’s obvious that the ConvNet focuses more on letters than other characters, which means that it has learned something.&lt;/p&gt;
+
+&lt;h5 id=&#34;performance-on-sentiment-analysis:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Performance on Sentiment Analysis&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L12/Screen%20Shot%202016-05-18%20at%209.27.09%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;performance-on-topic-classification:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Performance on Topic Classification&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L12/Screen%20Shot%202016-05-18%20at%209.27.42%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;performance-on-news-categorization-in-english:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Performance on News Categorization in English&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L12/Screen%20Shot%202016-05-18%20at%209.28.07%20PM.png&#34; alt=&#34;&#34; /&gt;
+The overfitting occurred in this result reveals that to achieve good text understanding results ConvNets require a large corpus.&lt;/p&gt;
+
+&lt;h5 id=&#34;performance-on-news-categorization-in-chinese:b22ba9caa617c5be07c9c6fef21aa826&#34;&gt;Performance on News Categorization in Chinese&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L12/Screen%20Shot%202016-05-18%20at%209.28.18%20PM.png&#34; alt=&#34;&#34; /&gt;
+Both in Chinese and English the method performs well and thus prove its generalisation.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>L10_PAPER</title>
