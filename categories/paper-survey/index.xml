@@ -6,8 +6,70 @@
     <description>Recent content in Paper Survey on Daniel Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 19 May 2016 00:22:17 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 23 May 2016 00:34:24 +0800</lastBuildDate>
     <atom:link href="http://Mithril-NTU.github.io/categories/paper-survey/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>L11_PAPER</title>
+      <link>http://mithril-ntu.github.io/L11_PAPER/</link>
+      <pubDate>Mon, 23 May 2016 00:34:24 +0800</pubDate>
+      
+      <guid>http://mithril-ntu.github.io/L11_PAPER/</guid>
+      <description>
+
+&lt;h3 id=&#34;cvpr-14:9371427216152d03703fefa395f11c8c&#34;&gt;CVPR’14&lt;/h3&gt;
+
+&lt;h3 id=&#34;deepface-closing-the-gap-to-human-level-performance-in-face-verification:9371427216152d03703fefa395f11c8c&#34;&gt;DeepFace: Closing the Gap to Human-Level Performance in Face Verification&lt;/h3&gt;
+
+&lt;h4 id=&#34;introduction:9371427216152d03703fefa395f11c8c&#34;&gt;Introduction&lt;/h4&gt;
+
+&lt;p&gt;This paper uses a two-phase alignment methods to preprocess raw images and then derives representations of these processed images from a nine-layer deep neural network. State of art results are achieved in the LFW dataset.&lt;/p&gt;
+
+&lt;h4 id=&#34;face-alignment:9371427216152d03703fefa395f11c8c&#34;&gt;Face alignment&lt;/h4&gt;
+
+&lt;p&gt;Since face is a 3D object, the authors believe that employing a 3D model for alignment is the right way. Their alignment method, which can be divided into 2 phases, is shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L11/Screen%20Shot%202016-05-22%20at%2011.27.15%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;first-phase-2d-alignment:9371427216152d03703fefa395f11c8c&#34;&gt;First phase — 2D alignment&lt;/h5&gt;
+
+&lt;p&gt;The authors combine LBP descriptor with a Support Vector Regressor (SVR) to train a simple six-fiducial-point detector and then use these 6 fiducial points to approximately scale, rotate and translate the image into six anchor locations. The resulted final 2D similarity transformation can assist to compensate for the in-plane rotation of faces in raw images.&lt;/p&gt;
+
+&lt;h5 id=&#34;second-phase-3d-alignment:9371427216152d03703fefa395f11c8c&#34;&gt;Second phase — 3D alignment&lt;/h5&gt;
+
+&lt;p&gt;For out-of-plane rotation, the authors use a generic 3D shape model and register a 3D affine camera, which are used to warp the 2D-aligned crop to the image plane of the 3D shape.
+To achieve this, the authors firstly use a second SVR to generate 67 fiducial points in the 2D-aligned crops from the first phase. Then, the authors find an affine transformation matrix to fit the 3D model into the 2D image by solving a least squares problem. In the end, this 3D model is used to frontalize the 2D-aligned crops.&lt;/p&gt;
+
+&lt;h4 id=&#34;representation:9371427216152d03703fefa395f11c8c&#34;&gt;Representation&lt;/h4&gt;
+
+&lt;p&gt;A nine-layer deep neural network is trained to get a discriminative representation of face images:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L11/Screen%20Shot%202016-05-23%20at%2012.01.16%20AM.png&#34; alt=&#34;&#34; /&gt;
+C1 and C3 are global convolutional layers, while L3, L4 and L5 are locally convolutional layers which apply different filters to different regions in the feature map. M2 is a max-pooling layer. The other 3 layers are 2 fully-connected layers and 1 softmax layer.
+To reduce the sensitivity to illumination changes, the authors normalize the features to be between zero and one.&lt;/p&gt;
+
+&lt;h4 id=&#34;verification-metric:9371427216152d03703fefa395f11c8c&#34;&gt;Verification Metric&lt;/h4&gt;
+
+&lt;p&gt;To verify whether two input instances belong to the same class, the authors try 2 metric learning methods: 1) the weighted χ2 similarity; 2) the Siamese network.&lt;/p&gt;
+
+&lt;h4 id=&#34;experiments:9371427216152d03703fefa395f11c8c&#34;&gt;Experiments&lt;/h4&gt;
+
+&lt;h5 id=&#34;compare-different-training-dataset-sizes-and-depth-of-neural-network:9371427216152d03703fefa395f11c8c&#34;&gt;Compare different training dataset sizes and depth of neural network&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L11/Screen%20Shot%202016-05-23%20at%2012.17.31%20AM.png&#34; alt=&#34;&#34; /&gt;
+The first column (Subsets of sizes 1.5K, 3K and 4K persons) indicates that the capacity of the network can well accommodate the scale of 3M training images.
+The second column (the global number of samples in SFC to 10%, 20%, 50%) shows that the network would benefit from even larger datasets.
+The third column (chopping off the C3 layer, the two local L4 and L5 layers, or all these 3 layers, referred respectively as DF-sub1, DF-sub2, and DF-sub3) verifies the necessity of network depth when training on a large face dataset.&lt;/p&gt;
+
+&lt;h5 id=&#34;compare-different-inputs-network-architectures-and-other-state-of-art-methods:9371427216152d03703fefa395f11c8c&#34;&gt;Compare different inputs, network architectures and other state of art methods&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L11/Screen%20Shot%202016-05-23%20at%2012.22.49%20AM.png&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;http://Mithril-NTU.github.io/L11/Screen%20Shot%202016-05-23%20at%2012.26.04%20AM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;compare-on-the-ytf-dataset:9371427216152d03703fefa395f11c8c&#34;&gt;Compare on the YTF dataset&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L11/Screen%20Shot%202016-05-23%20at%2012.30.47%20AM.png&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;http://Mithril-NTU.github.io/L11/Screen%20Shot%202016-05-23%20at%2012.30.54%20AM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>L12_PAPER</title>

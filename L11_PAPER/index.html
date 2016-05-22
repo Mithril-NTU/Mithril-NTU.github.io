@@ -1,0 +1,135 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> L11_PAPER &middot; Daniel Liu </title>
+
+  
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/poole.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/syntax.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daniel Liu" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://mithril-ntu.github.io/"><h1>Daniel Liu</h1></a>
+      <p class="lead">
+       This is Daniel&#39;s Blog. 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/HD_LBP/"> HD_LBP </a></li>
+      
+        <li><a href="/L10_PAPER/"> L10_PAPER </a></li>
+      
+        <li><a href="/L11_PAPER/"> L11_PAPER </a></li>
+      
+        <li><a href="/L12_PAPER/"> L12_PAPER </a></li>
+      
+        <li><a href="/L2_PAPER/"> L2_PAPER </a></li>
+      
+        <li><a href="/L3_PAPER/"> L3_PAPER </a></li>
+      
+        <li><a href="/L4_PAPER/"> L4_PAPER </a></li>
+      
+        <li><a href="/L5_PAPER/"> L5_PAPER </a></li>
+      
+        <li><a href="/L6_PAPER/"> L6_PAPER </a></li>
+      
+        <li><a href="/L7_PAPER/"> L7_PAPER </a></li>
+      
+        <li><a href="/L8_PAPER/"> L8_PAPER </a></li>
+      
+        <li><a href="/welcome/"> Welcome </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>L11_PAPER</h1>
+			  <span class="post-date">Mon, May 23, 2016</span>
+			      
+
+<h3 id="cvpr-14:9371427216152d03703fefa395f11c8c">CVPR’14</h3>
+
+<h3 id="deepface-closing-the-gap-to-human-level-performance-in-face-verification:9371427216152d03703fefa395f11c8c">DeepFace: Closing the Gap to Human-Level Performance in Face Verification</h3>
+
+<h4 id="introduction:9371427216152d03703fefa395f11c8c">Introduction</h4>
+
+<p>This paper uses a two-phase alignment methods to preprocess raw images and then derives representations of these processed images from a nine-layer deep neural network. State of art results are achieved in the LFW dataset.</p>
+
+<h4 id="face-alignment:9371427216152d03703fefa395f11c8c">Face alignment</h4>
+
+<p>Since face is a 3D object, the authors believe that employing a 3D model for alignment is the right way. Their alignment method, which can be divided into 2 phases, is shown below:
+<img src="/L11/Screen%20Shot%202016-05-22%20at%2011.27.15%20PM.png" alt="" /></p>
+
+<h5 id="first-phase-2d-alignment:9371427216152d03703fefa395f11c8c">First phase — 2D alignment</h5>
+
+<p>The authors combine LBP descriptor with a Support Vector Regressor (SVR) to train a simple six-fiducial-point detector and then use these 6 fiducial points to approximately scale, rotate and translate the image into six anchor locations. The resulted final 2D similarity transformation can assist to compensate for the in-plane rotation of faces in raw images.</p>
+
+<h5 id="second-phase-3d-alignment:9371427216152d03703fefa395f11c8c">Second phase — 3D alignment</h5>
+
+<p>For out-of-plane rotation, the authors use a generic 3D shape model and register a 3D affine camera, which are used to warp the 2D-aligned crop to the image plane of the 3D shape.
+To achieve this, the authors firstly use a second SVR to generate 67 fiducial points in the 2D-aligned crops from the first phase. Then, the authors find an affine transformation matrix to fit the 3D model into the 2D image by solving a least squares problem. In the end, this 3D model is used to frontalize the 2D-aligned crops.</p>
+
+<h4 id="representation:9371427216152d03703fefa395f11c8c">Representation</h4>
+
+<p>A nine-layer deep neural network is trained to get a discriminative representation of face images:
+<img src="/L11/Screen%20Shot%202016-05-23%20at%2012.01.16%20AM.png" alt="" />
+C1 and C3 are global convolutional layers, while L3, L4 and L5 are locally convolutional layers which apply different filters to different regions in the feature map. M2 is a max-pooling layer. The other 3 layers are 2 fully-connected layers and 1 softmax layer.
+To reduce the sensitivity to illumination changes, the authors normalize the features to be between zero and one.</p>
+
+<h4 id="verification-metric:9371427216152d03703fefa395f11c8c">Verification Metric</h4>
+
+<p>To verify whether two input instances belong to the same class, the authors try 2 metric learning methods: 1) the weighted χ2 similarity; 2) the Siamese network.</p>
+
+<h4 id="experiments:9371427216152d03703fefa395f11c8c">Experiments</h4>
+
+<h5 id="compare-different-training-dataset-sizes-and-depth-of-neural-network:9371427216152d03703fefa395f11c8c">Compare different training dataset sizes and depth of neural network</h5>
+
+<p><img src="/L11/Screen%20Shot%202016-05-23%20at%2012.17.31%20AM.png" alt="" />
+The first column (Subsets of sizes 1.5K, 3K and 4K persons) indicates that the capacity of the network can well accommodate the scale of 3M training images.
+The second column (the global number of samples in SFC to 10%, 20%, 50%) shows that the network would benefit from even larger datasets.
+The third column (chopping off the C3 layer, the two local L4 and L5 layers, or all these 3 layers, referred respectively as DF-sub1, DF-sub2, and DF-sub3) verifies the necessity of network depth when training on a large face dataset.</p>
+
+<h5 id="compare-different-inputs-network-architectures-and-other-state-of-art-methods:9371427216152d03703fefa395f11c8c">Compare different inputs, network architectures and other state of art methods</h5>
+
+<p><img src="/L11/Screen%20Shot%202016-05-23%20at%2012.22.49%20AM.png" alt="" />
+<img src="/L11/Screen%20Shot%202016-05-23%20at%2012.26.04%20AM.png" alt="" /></p>
+
+<h5 id="compare-on-the-ytf-dataset:9371427216152d03703fefa395f11c8c">Compare on the YTF dataset</h5>
+
+<p><img src="/L11/Screen%20Shot%202016-05-23%20at%2012.30.47%20AM.png" alt="" />
+<img src="/L11/Screen%20Shot%202016-05-23%20at%2012.30.54%20AM.png" alt="" /></p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>
