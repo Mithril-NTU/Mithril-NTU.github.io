@@ -1,0 +1,129 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> L13_PAPER &middot; Daniel Liu </title>
+
+  
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/poole.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/syntax.css">
+  <link rel="stylesheet" href="http://mithril-ntu.github.io/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daniel Liu" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://mithril-ntu.github.io/"><h1>Daniel Liu</h1></a>
+      <p class="lead">
+       This is Daniel&#39;s Blog. 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/HD_LBP/"> HD_LBP </a></li>
+      
+        <li><a href="/L10_PAPER/"> L10_PAPER </a></li>
+      
+        <li><a href="/L11_PAPER/"> L11_PAPER </a></li>
+      
+        <li><a href="/L12_PAPER/"> L12_PAPER </a></li>
+      
+        <li><a href="/L13_PAPER/"> L13_PAPER </a></li>
+      
+        <li><a href="/L2_PAPER/"> L2_PAPER </a></li>
+      
+        <li><a href="/L3_PAPER/"> L3_PAPER </a></li>
+      
+        <li><a href="/L4_PAPER/"> L4_PAPER </a></li>
+      
+        <li><a href="/L5_PAPER/"> L5_PAPER </a></li>
+      
+        <li><a href="/L6_PAPER/"> L6_PAPER </a></li>
+      
+        <li><a href="/L7_PAPER/"> L7_PAPER </a></li>
+      
+        <li><a href="/L8_PAPER/"> L8_PAPER </a></li>
+      
+        <li><a href="/welcome/"> Welcome </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>L13_PAPER</h1>
+			  <span class="post-date">Wed, May 25, 2016</span>
+			      
+
+<h3 id="spm-12:b68c34f0e3ae52331757a585238f5737">SPM’12</h3>
+
+<h3 id="deep-neural-networks-for-acoustic-modelling-in-speech-recognition:b68c34f0e3ae52331757a585238f5737">Deep Neural Networks for Acoustic Modelling in Speech Recognition</h3>
+
+<h4 id="introduction:b68c34f0e3ae52331757a585238f5737">Introduction</h4>
+
+<p>The paper mainly provides an overview of the DBN-DNN system and compares its performance with the GMM-HMM system’s on some datasets. The recent successes of DBN-DNN in ASR system are proved in these experiments.</p>
+
+<h4 id="architecture-of-dbn-dnn:b68c34f0e3ae52331757a585238f5737">Architecture of DBN-DNN</h4>
+
+<p>The main architecture of DBN-DNN is shown below:
+<img src="/L13/Screen%20Shot%202016-05-25%20at%205.41.27%20PM.png" alt="" />
+The whole system is firstly pre-trained on stacked RBMs and then the weights in these different RBMs are used to initialize corresponding layers of hidden units in a DNN. In the end, the initialised DNN is fine-tuned by back-propagation and then used to output <em>“p(HMMstate|AcousticInput)”</em>.</p>
+
+<h5 id="rbm:b68c34f0e3ae52331757a585238f5737">RBM</h5>
+
+<p>Restricted Boltzmann machines(RBM) are trained to maximize the  expected log probability assigned to some training set V:
+<img src="/L13/Screen%20Shot%202016-05-25%20at%206.02.43%20PM.png" alt="" />
+where the probability of a visible vector is
+<img src="/L13/Screen%20Shot%202016-05-25%20at%206.03.02%20PM.png" alt="" />
+and RBM energy function(for binary input) is
+<img src="/L13/Screen%20Shot%202016-05-25%20at%206.03.08%20PM.png" alt="" />
+For real-valued data, the RBM energy function is defined as
+<img src="/L13/Screen%20Shot%202016-05-25%20at%206.06.03%20PM.png" alt="" />
+where σ_i is the standard deviation of the Gaussian noise of visible unit i.
+The authors stack RBMs to be a multi-layer model and trained it by contrastive divergence (CD) algorithm.</p>
+
+<h5 id="dnn:b68c34f0e3ae52331757a585238f5737">DNN</h5>
+
+<p>The generative weights learned in DBN are directly applied to the initialization of DNN. Then the DNN is fine-tuned by back-propagation. The fine-tuned DNN is interfaced with an HMM.</p>
+
+<h4 id="experiments:b68c34f0e3ae52331757a585238f5737">Experiments</h4>
+
+<h5 id="the-timit-core-test-set:b68c34f0e3ae52331757a585238f5737">the TIMIT core test set</h5>
+
+<p><img src="/L13/Screen%20Shot%202016-05-25%20at%206.25.28%20PM.png" alt="" />
+Table I compares DBN-DNNs with a variety of other methods on the TIMIT core test set.
+Two kinds of feature are used in this experiment: MFCC and fbank. The good performance of “fbank” feature reveals that DBN-DNN models don’t require uncorrelated data. It is also obvious that DBN-DNNs outperforms GMM-HMMs.</p>
+
+<h5 id="other-datasets-tasks:b68c34f0e3ae52331757a585238f5737">Other datasets(tasks)</h5>
+
+<p><img src="/L13/Screen%20Shot%202016-05-25%20at%206.32.01%20PM.png" alt="" />
+<img src="/L13/Screen%20Shot%202016-05-25%20at%206.32.13%20PM.png" alt="" /></p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

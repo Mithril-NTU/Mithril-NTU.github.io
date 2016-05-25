@@ -6,8 +6,62 @@
     <description>Recent content in Ammai on Daniel Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 May 2016 00:34:24 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 25 May 2016 18:38:01 +0800</lastBuildDate>
     <atom:link href="http://Mithril-NTU.github.io/tags/ammai/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>L13_PAPER</title>
+      <link>http://mithril-ntu.github.io/L13_PAPER/</link>
+      <pubDate>Wed, 25 May 2016 18:38:01 +0800</pubDate>
+      
+      <guid>http://mithril-ntu.github.io/L13_PAPER/</guid>
+      <description>
+
+&lt;h3 id=&#34;spm-12:b68c34f0e3ae52331757a585238f5737&#34;&gt;SPM’12&lt;/h3&gt;
+
+&lt;h3 id=&#34;deep-neural-networks-for-acoustic-modelling-in-speech-recognition:b68c34f0e3ae52331757a585238f5737&#34;&gt;Deep Neural Networks for Acoustic Modelling in Speech Recognition&lt;/h3&gt;
+
+&lt;h4 id=&#34;introduction:b68c34f0e3ae52331757a585238f5737&#34;&gt;Introduction&lt;/h4&gt;
+
+&lt;p&gt;The paper mainly provides an overview of the DBN-DNN system and compares its performance with the GMM-HMM system’s on some datasets. The recent successes of DBN-DNN in ASR system are proved in these experiments.&lt;/p&gt;
+
+&lt;h4 id=&#34;architecture-of-dbn-dnn:b68c34f0e3ae52331757a585238f5737&#34;&gt;Architecture of DBN-DNN&lt;/h4&gt;
+
+&lt;p&gt;The main architecture of DBN-DNN is shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L13/Screen%20Shot%202016-05-25%20at%205.41.27%20PM.png&#34; alt=&#34;&#34; /&gt;
+The whole system is firstly pre-trained on stacked RBMs and then the weights in these different RBMs are used to initialize corresponding layers of hidden units in a DNN. In the end, the initialised DNN is fine-tuned by back-propagation and then used to output &lt;em&gt;“p(HMMstate|AcousticInput)”&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h5 id=&#34;rbm:b68c34f0e3ae52331757a585238f5737&#34;&gt;RBM&lt;/h5&gt;
+
+&lt;p&gt;Restricted Boltzmann machines(RBM) are trained to maximize the  expected log probability assigned to some training set V:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L13/Screen%20Shot%202016-05-25%20at%206.02.43%20PM.png&#34; alt=&#34;&#34; /&gt;
+where the probability of a visible vector is
+&lt;img src=&#34;http://Mithril-NTU.github.io/L13/Screen%20Shot%202016-05-25%20at%206.03.02%20PM.png&#34; alt=&#34;&#34; /&gt;
+and RBM energy function(for binary input) is
+&lt;img src=&#34;http://Mithril-NTU.github.io/L13/Screen%20Shot%202016-05-25%20at%206.03.08%20PM.png&#34; alt=&#34;&#34; /&gt;
+For real-valued data, the RBM energy function is defined as
+&lt;img src=&#34;http://Mithril-NTU.github.io/L13/Screen%20Shot%202016-05-25%20at%206.06.03%20PM.png&#34; alt=&#34;&#34; /&gt;
+where σ_i is the standard deviation of the Gaussian noise of visible unit i.
+The authors stack RBMs to be a multi-layer model and trained it by contrastive divergence (CD) algorithm.&lt;/p&gt;
+
+&lt;h5 id=&#34;dnn:b68c34f0e3ae52331757a585238f5737&#34;&gt;DNN&lt;/h5&gt;
+
+&lt;p&gt;The generative weights learned in DBN are directly applied to the initialization of DNN. Then the DNN is fine-tuned by back-propagation. The fine-tuned DNN is interfaced with an HMM.&lt;/p&gt;
+
+&lt;h4 id=&#34;experiments:b68c34f0e3ae52331757a585238f5737&#34;&gt;Experiments&lt;/h4&gt;
+
+&lt;h5 id=&#34;the-timit-core-test-set:b68c34f0e3ae52331757a585238f5737&#34;&gt;the TIMIT core test set&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L13/Screen%20Shot%202016-05-25%20at%206.25.28%20PM.png&#34; alt=&#34;&#34; /&gt;
+Table I compares DBN-DNNs with a variety of other methods on the TIMIT core test set.
+Two kinds of feature are used in this experiment: MFCC and fbank. The good performance of “fbank” feature reveals that DBN-DNN models don’t require uncorrelated data. It is also obvious that DBN-DNNs outperforms GMM-HMMs.&lt;/p&gt;
+
+&lt;h5 id=&#34;other-datasets-tasks:b68c34f0e3ae52331757a585238f5737&#34;&gt;Other datasets(tasks)&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L13/Screen%20Shot%202016-05-25%20at%206.32.01%20PM.png&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;http://Mithril-NTU.github.io/L13/Screen%20Shot%202016-05-25%20at%206.32.13%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>L11_PAPER</title>
