@@ -6,8 +6,45 @@
     <description>Recent content in Development on Daniel Liu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 25 May 2016 18:38:01 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 09 Jun 2016 18:03:45 +0800</lastBuildDate>
     <atom:link href="http://Mithril-NTU.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>L14_PAPER</title>
+      <link>http://mithril-ntu.github.io/L14_PAPER/</link>
+      <pubDate>Thu, 09 Jun 2016 18:03:45 +0800</pubDate>
+      
+      <guid>http://mithril-ntu.github.io/L14_PAPER/</guid>
+      <description>
+
+&lt;h3 id=&#34;arxiv-15:f4b87ae65c6c49efda5379680ba362bb&#34;&gt;arXiv’15&lt;/h3&gt;
+
+&lt;h3 id=&#34;sequence-to-sequence-video-to-text:f4b87ae65c6c49efda5379680ba362bb&#34;&gt;Sequence to Sequence – Video to Text&lt;/h3&gt;
+
+&lt;h4 id=&#34;introduction:f4b87ae65c6c49efda5379680ba362bb&#34;&gt;Introduction&lt;/h4&gt;
+
+&lt;p&gt;This paper mainly proposes a end-to-end method to translate videos into text descriptions. It uses CNN for feature extraction and LSTM for encoding and decoding of the features and word representations. The main framework of the S2VT system is shown below:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L14/Screen%20Shot%202016-06-09%20at%205.28.01%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;approach:f4b87ae65c6c49efda5379680ba362bb&#34;&gt;Approach&lt;/h4&gt;
+
+&lt;h5 id=&#34;s2vt:f4b87ae65c6c49efda5379680ba362bb&#34;&gt;S2VT&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L14/Screen%20Shot%202016-06-09%20at%205.29.30%20PM.png&#34; alt=&#34;&#34; /&gt;
+A stack of 2 LSTMs with 1000 units each is used in their model, in which the first layer LSTM encodes the feature sequence from CNN to a fixed length vector and then the second layer LSTM decodes this vector to a text sequence.&lt;/p&gt;
+
+&lt;h5 id=&#34;video-and-text-representation:f4b87ae65c6c49efda5379680ba362bb&#34;&gt;Video and text representation&lt;/h5&gt;
+
+&lt;p&gt;Two kinds of input have been applied to their model—S2VT: RGB frames and Optical Flow. In the authors’ combined model, they use a shallow fusion technique to integrate flow and RGB features:
+&lt;img src=&#34;http://Mithril-NTU.github.io/L14/Screen%20Shot%202016-06-09%20at%205.58.30%20PM.png&#34; alt=&#34;&#34; /&gt;
+The hyper-parameter alpha is tuned on the validation set.&lt;/p&gt;
+
+&lt;h4 id=&#34;experiments:f4b87ae65c6c49efda5379680ba362bb&#34;&gt;Experiments&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://Mithril-NTU.github.io/L14/Screen%20Shot%202016-06-09%20at%206.00.23%20PM.png&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;http://Mithril-NTU.github.io/L14/Screen%20Shot%202016-06-09%20at%206.01.50%20PM.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>L13_PAPER</title>

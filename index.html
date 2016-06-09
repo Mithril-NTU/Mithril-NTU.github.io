@@ -48,6 +48,8 @@
       
         <li><a href="/L13_PAPER/"> L13_PAPER </a></li>
       
+        <li><a href="/L14_PAPER/"> L14_PAPER </a></li>
+      
         <li><a href="/L2_PAPER/"> L2_PAPER </a></li>
       
         <li><a href="/L3_PAPER/"> L3_PAPER </a></li>
@@ -75,6 +77,46 @@
 <div class="posts">
 
       
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://mithril-ntu.github.io/L14_PAPER/">
+        L14_PAPER
+      </a>
+    </h1>
+
+    <span class="post-date">Thu, Jun 9, 2016</span>
+
+    
+
+<h3 id="arxiv-15:f4b87ae65c6c49efda5379680ba362bb">arXiv’15</h3>
+
+<h3 id="sequence-to-sequence-video-to-text:f4b87ae65c6c49efda5379680ba362bb">Sequence to Sequence – Video to Text</h3>
+
+<h4 id="introduction:f4b87ae65c6c49efda5379680ba362bb">Introduction</h4>
+
+<p>This paper mainly proposes a end-to-end method to translate videos into text descriptions. It uses CNN for feature extraction and LSTM for encoding and decoding of the features and word representations. The main framework of the S2VT system is shown below:
+<img src="/L14/Screen%20Shot%202016-06-09%20at%205.28.01%20PM.png" alt="" /></p>
+
+<h4 id="approach:f4b87ae65c6c49efda5379680ba362bb">Approach</h4>
+
+<h5 id="s2vt:f4b87ae65c6c49efda5379680ba362bb">S2VT</h5>
+
+<p><img src="/L14/Screen%20Shot%202016-06-09%20at%205.29.30%20PM.png" alt="" />
+A stack of 2 LSTMs with 1000 units each is used in their model, in which the first layer LSTM encodes the feature sequence from CNN to a fixed length vector and then the second layer LSTM decodes this vector to a text sequence.</p>
+
+<h5 id="video-and-text-representation:f4b87ae65c6c49efda5379680ba362bb">Video and text representation</h5>
+
+<p>Two kinds of input have been applied to their model—S2VT: RGB frames and Optical Flow. In the authors’ combined model, they use a shallow fusion technique to integrate flow and RGB features:
+<img src="/L14/Screen%20Shot%202016-06-09%20at%205.58.30%20PM.png" alt="" />
+The hyper-parameter alpha is tuned on the validation set.</p>
+
+<h4 id="experiments:f4b87ae65c6c49efda5379680ba362bb">Experiments</h4>
+
+<p><img src="/L14/Screen%20Shot%202016-06-09%20at%206.00.23%20PM.png" alt="" />
+<img src="/L14/Screen%20Shot%202016-06-09%20at%206.01.50%20PM.png" alt="" /></p>
+
+  </div>
+  
   <div class="post">
     <h1 class="post-title">
       <a href="http://mithril-ntu.github.io/L13_PAPER/">
